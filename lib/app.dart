@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'pages/home.dart';
+import 'pages/list_view_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -13,7 +14,12 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         useMaterial3: true,
       ),
-      home: const SplashScreen(), // Start with the splash screen
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const SplashScreen(),
+        '/home': (context) => const HomePage(),
+        '/listview': (context) => const ListViewPage(),
+      }, 
     );
   }
 }
@@ -34,14 +40,11 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _initializeApp() async {
-    await Future.delayed(const Duration(seconds: 2)); // Simulate loading time
+    await Future.delayed(const Duration(seconds: 5)); 
 
-    if (!mounted) return; // Ensure widget is still in the tree
+    if (!mounted) return; 
 
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const HomePage()),
-    );
+    Navigator.pushReplacementNamed(context, '/home');
   }
 
   @override
