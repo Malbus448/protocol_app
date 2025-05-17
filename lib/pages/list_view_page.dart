@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../utils/screen_utils.dart';
+import '../widgets/app_bar.dart';
 
 class ListViewPage extends StatelessWidget {
   const ListViewPage({super.key});
@@ -10,18 +10,7 @@ class ListViewPage extends StatelessWidget {
     final String title = args['title'] ?? 'Default Title';
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title,
-          style: TextStyle(
-            fontSize: ScreenUtils.fontSize(context, 0.035),
-            fontWeight: FontWeight.bold,
-          ),),  // Display the passed title
-        centerTitle: true,
-        backgroundColor: Colors.blue,
-      ),
-      body: Center(
-        child: Text('Welcome to the $title Page'),
-      ),
+      appBar: customAppBar(context, title),
     );
   }
 }

@@ -19,11 +19,10 @@ class MyApp extends StatelessWidget {
         '/': (context) => const SplashScreen(),
         '/home': (context) => const HomePage(),
         '/listview': (context) => const ListViewPage(),
-      }, 
-    );
-  }
-}
+      },);
 
+      }
+  }
 // Splash screen and app initialization combined
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
