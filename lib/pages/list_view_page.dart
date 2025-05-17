@@ -20,7 +20,6 @@ class ListViewPage extends StatelessWidget {
             margin: const EdgeInsets.all(8.0),
             child: ListTile(
               title: Text(csvData[index][0].toString()),  // Adjust to display your preferred column
-              subtitle: Text(csvData[index].join(', ')),  // Shows the entire row as a comma-separated string
             ),
           );
         },
