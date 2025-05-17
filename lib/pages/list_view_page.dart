@@ -7,17 +7,17 @@ class ListViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    final title = args['title'] ?? 'Drug List';
-    final csvData = args['csvData'] as List<List<dynamic>>;
+    // Safely access arguments with null check
+    final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>? ?? {};
+    final title = args['title'] ?? 'Default Title';  // Fallback title
+    final csvData = args['csvData'] as List<List<dynamic>>? ?? [];  // Fallback empty list
 
     return Scaffold(
       appBar: customAppBar(context, title),
       body: CustomListView(
-        title: title,
         csvData: csvData,
+        title: title,
       ),
     );
   }
 }
-
