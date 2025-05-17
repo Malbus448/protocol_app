@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:csv/csv.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import '../widgets/main_nav_button.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+
+  // CSV loading function
+  Future<List<List<dynamic>>> loadCSV(String fileName) async {
+    final rawData = await rootBundle.loadString('assets/$fileName');
+    List<List<dynamic>> csvData = const CsvToListConverter().convert(rawData);
+    return csvData;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +21,7 @@ class HomePage extends StatelessWidget {
         title: const Text(
           'Home Page',
           style: TextStyle(
-            fontSize: 20,  // Adjust as needed
+            fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -24,39 +33,60 @@ class HomePage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              buildMainNavButton(context, 'Protocols', () {
+              buildMainNavButton(context, 'Protocols', () async {
+                var csvData = await loadCSV('csv/protocols.csv');
+                if (context.mounted) { 
                 Navigator.pushNamed(
                   context,
                   '/listview',
-                  arguments: {'title': 'Protocols'},
+                  arguments: {
+                    'title': 'Protocols',
+                    'csvData': csvData,
+                  },
                 );
+                }
               }),
               const SizedBox(height: 16),
-              buildMainNavButton(context, 'Drug Monographs', () {
+              buildMainNavButton(context, 'Drug Monographs', () async {
+                var csvData = await loadCSV('csv/drug_monograph.csv');
+                if (context.mounted) { 
                 Navigator.pushNamed(
                   context,
                   '/listview',
                   arguments: {
                     'title': 'Drug Monographs',
-                    'csvPath': 'assets/csv/drug_monograph.csv'
+                    'csvData': csvData,
                   },
                 );
+                }
               }),
               const SizedBox(height: 16),
-              buildMainNavButton(context, 'Operations', () {
+              buildMainNavButton(context, 'Operations', () async {
+                var csvData = await loadCSV('csv/operations.csv');
+                if (context.mounted) { 
                 Navigator.pushNamed(
                   context,
                   '/listview',
-                  arguments: {'title': 'Operations'},
+                  arguments: {
+                    'title': 'Operations',
+                    'csvData': csvData,
+                  },
                 );
+                }
               }),
-               const SizedBox(height: 16),
-              buildMainNavButton(context, 'Checklists', () {
+              const SizedBox(height: 16),
+              buildMainNavButton(context, 'Checklists', () async {
+                var csvData = await loadCSV('csv/checklists.csv');
+                if (context.mounted) { 
                 Navigator.pushNamed(
                   context,
                   '/listview',
-                  arguments: {'title': 'Checklists'},
+                  arguments: {
+                    'title': 'Checklists',
+                    'csvData': csvData,
+                  },
                 );
+                }
               }),
             ],
           ),
