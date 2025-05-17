@@ -4,12 +4,14 @@ class ExpandableBox extends StatefulWidget {
   final String title;
   final List<Map<String, String>> data;
   final String columnKey;
+  final int selectedIndex;  // Add the missing parameter
 
   const ExpandableBox({
     super.key,
     required this.title,
     required this.data,
     required this.columnKey,
+    required this.selectedIndex,  // Include the selectedIndex parameter
   });
 
   @override
@@ -24,18 +26,30 @@ class ExpandableBoxState extends State<ExpandableBox> {
     return Card(
       margin: const EdgeInsets.all(8.0),
       child: ExpansionTile(
-        title: Text(widget.title),
+        title: Text(
+          // Display the specific column from the first row when collapsed
+          _isExpanded
+              ? widget.title
+              : widget.data.isNotEmpty
+                  ? widget.data[0][widget.columnKey] ?? 'N/A'
+                  : 'N/A',
+        ),
         initiallyExpanded: _isExpanded,
         onExpansionChanged: (expanded) {
           setState(() {
             _isExpanded = expanded;
           });
         },
-        children: widget.data.map((item) {
-          return ListTile(
-            title: Text(item[widget.columnKey] ?? 'N/A'),
-          );
-        }).toList(),
+        children: [
+          // Display the corresponding column from the selected item when expanded
+          ListTile(
+            title: Text(
+              widget.data.isNotEmpty
+                  ? widget.data[widget.selectedIndex][widget.columnKey] ?? 'N/A'
+                  : 'N/A',
+            ),
+          ),
+        ],
       ),
     );
   }

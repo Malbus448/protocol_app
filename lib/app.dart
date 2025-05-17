@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:protocol_app/pages/monograph_display_page.dart';
 import 'pages/home.dart';
 import 'pages/list_view_page.dart';
 
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
         '/': (context) => const SplashScreen(),
         '/home': (context) => const HomePage(),
         '/listviewpage': (context) => const ListViewPage(),
-      },);
+        '/monograph_display_page': (context) => const MonographDisplayPage(),
+  },);
 
       }
   }
