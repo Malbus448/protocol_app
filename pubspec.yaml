@@ -63,7 +63,6 @@ flutter:
         - assets/csv/protocols.csv
         - assets/csv/drug_monograph.csv
         - assets/csv/operations.csv
-        - assets/csv/checklist.csv
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
