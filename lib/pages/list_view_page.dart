@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/app_bar.dart';
+import '../widgets/list_view.dart'; // Import the CustomListView widget
 
 class ListViewPage extends StatelessWidget {
   const ListViewPage({super.key});
@@ -12,18 +13,11 @@ class ListViewPage extends StatelessWidget {
 
     return Scaffold(
       appBar: customAppBar(context, title),
-      body: ListView.builder(
-        itemCount: csvData.length,
-        itemBuilder: (context, index) {
-          // Displaying the first column for simplicity
-          return Card(
-            margin: const EdgeInsets.all(8.0),
-            child: ListTile(
-              title: Text(csvData[index][0].toString()),  // Adjust to display your preferred column
-            ),
-          );
-        },
+      body: CustomListView(
+        title: title,
+        csvData: csvData,
       ),
     );
   }
 }
+
