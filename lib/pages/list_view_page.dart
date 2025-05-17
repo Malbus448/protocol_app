@@ -6,13 +6,25 @@ class ListViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)?.settings.arguments as Map<String, String>? ?? {};
-    final String title = args['title'] ?? 'Default Title';
+    final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final title = args['title'];
+    final csvData = args['csvData'] as List<List<dynamic>>;
 
     return Scaffold(
       appBar: customAppBar(context, title),
+      body: ListView.builder(
+        itemCount: csvData.length,
+        itemBuilder: (context, index) {
+          // Displaying the first column for simplicity
+          return Card(
+            margin: const EdgeInsets.all(8.0),
+            child: ListTile(
+              title: Text(csvData[index][0].toString()),  // Adjust to display your preferred column
+              subtitle: Text(csvData[index].join(', ')),  // Shows the entire row as a comma-separated string
+            ),
+          );
+        },
+      ),
     );
   }
 }
-
- 
