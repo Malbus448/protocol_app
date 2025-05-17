@@ -76,7 +76,7 @@ class HomePage extends StatelessWidget {
               }),
               const SizedBox(height: 16),
               buildMainNavButton(context, 'Checklists', () async {
-                var csvData = await loadCSV('csv/checklists.csv');
+                var csvData = await loadCSV('csv/checklist.csv');
                 if (context.mounted) { 
                 Navigator.pushNamed(
                   context,
