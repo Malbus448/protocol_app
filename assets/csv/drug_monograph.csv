@@ -1,10 +1,35 @@
 Name,Classification,Mechanisim Of Action,Dose
-Acetominophen,Analgesic,temp boi,975mg
-ASA,Anti-platlet,platelet boi,162mg
-Calcium Gluconate,Calcium Agent,calcium boi,xunits
-Diphenhydramine,Anti-N,tummy boi,50mg
-Fentynal,Narcotic,pain boi,25-100mcg
-Halodol ,Benzo,crazy boi boi,5mg
-Ketamine,The good stuff,chill boi,dependant 
-Lorazapam ,Weaker good stuff,less chill boi,1mg
-Morphine,vasoactive okay stuff,pain boi,5mg
+Adenosine,Analgesic,temp boi,975mg
+Adrenaline,Anti-platlet,platelet boi,162mg
+Amiodarone,Calcium Agent,calcium boi,xunits
+Amoxoclav,Anti-N,tummy boi,50mg
+ASA,Narcotic,pain boi,25-100mcg
+Asolu-corted,Benzo,crazy boi boi,5mg
+Atropine,The good stuff,chill boi,dependant 
+Calcium Chlorinde,Weaker good stuff,less chill boi,1mg
+Cefazolin,vasoactive okay stuff,pain boi,5mg
+Dexamethasone,Analgesic,temp boi,975mg
+Dimenhydrinate,Anti-platlet,platelet boi,162mg
+Diphenhydramine,Calcium Agent,calcium boi,xunits
+Epinephrine,Anti-N,tummy boi,50mg
+Fentanyl,Narcotic,pain boi,25-100mcg
+Gluose,Benzo,crazy boi boi,5mg
+Haloperidol,The good stuff,chill boi,dependant 
+Ibuprofen,Weaker good stuff,less chill boi,1mg
+Ketamine,vasoactive okay stuff,pain boi,5mg
+Ketorolac,Analgesic,temp boi,975mg
+Lorazepam,Anti-platlet,platelet boi,162mg
+Magnesium Sulphate,Calcium Agent,calcium boi,xunits
+Metoclopramide,Anti-N,tummy boi,50mg
+Metoprolol,Narcotic,pain boi,25-100mcg
+Midazolam,Benzo,crazy boi boi,5mg
+Morphine,The good stuff,chill boi,dependant 
+Naloxone,Weaker good stuff,less chill boi,1mg
+Nitro,vasoactive okay stuff,pain boi,5mg
+Ondansetron,Analgesic,temp boi,975mg
+Pepcid,Anti-platlet,platelet boi,162mg
+Phenylephrine,Calcium Agent,calcium boi,xunits
+Ranitidine,Anti-N,tummy boi,50mg
+Rocuronium,Narcotic,pain boi,25-100mcg
+Succinylcholine,Benzo,crazy boi boi,5mg
+TXA,The good stuff,chill boi,dependant 
