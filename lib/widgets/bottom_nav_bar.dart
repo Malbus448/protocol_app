@@ -14,10 +14,10 @@ class BottomNavBar extends StatelessWidget {
         Navigator.pushNamed(context, '/home');
         break;
       case 1:
-        Navigator.pushNamed(context, '/uploads_page');
+        Navigator.pushNamed(context, '/profile_page');
         break;
       case 2:
-        Navigator.pushNamed(context, '/uploads_page');
+        Navigator.pushNamed(context, '/profile_page');
         break;
     }
   }
@@ -40,7 +40,7 @@ class BottomNavBar extends StatelessWidget {
         ),
       ],
       currentIndex: currentIndex,
-      selectedItemColor: Colors.amber[800],
+      selectedItemColor: Colors.blue,
       onTap: (index) => _onItemTapped(context, index),
     );
   }
