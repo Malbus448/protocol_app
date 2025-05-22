@@ -3,6 +3,7 @@ import 'package:csv/csv.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import '../widgets/main_nav_button.dart';
 import '../widgets/bottom_nav_bar.dart';
+import '../utils/screen_utils.dart'; // Assuming ScreenUtils is in this path
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,7 +15,6 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
-  // CSV loading function
   Future<List<List<dynamic>>> loadCSV(String fileName) async {
     final rawData = await rootBundle.loadString('assets/$fileName');
     List<List<dynamic>> csvData = const CsvToListConverter().convert(rawData);
@@ -26,17 +26,13 @@ class HomePageState extends State<HomePage> {
       _selectedIndex = index;
     });
 
-    // Handle navigation based on the selected index
     switch (index) {
       case 0:
-        // Already on Home, no action needed
         break;
       case 1:
-        // Navigate to Business page
         Navigator.pushNamed(context, '/business');
         break;
       case 2:
-        // Navigate to School page
         Navigator.pushNamed(context, '/school');
         break;
     }
@@ -54,6 +50,19 @@ class HomePageState extends State<HomePage> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(
+              right: ScreenUtils.width(context, 0.02),
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                // Handle menu press
+              },
+            ),
+          ),
+        ],
         centerTitle: true,
         backgroundColor: Colors.blue,
       ),

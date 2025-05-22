@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:protocol_app/pages/monograph_display_page.dart';
-import 'package:protocol_app/pages/profile.dart';
-//import 'package:protocol_app/pages/uploads.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'pages/home.dart';
 import 'pages/list_view_page.dart';
+import 'pages/monograph_display_page.dart';
+import 'pages/profile.dart';
+import 'pages/login_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -23,13 +26,13 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomePage(),
         '/listviewpage': (context) => const ListViewPage(),
         '/monograph_display_page': (context) => const MonographDisplayPage(),
-        //'/uploads_page': (context) => const UploadsPage(), 
         '/profile_page': (context) => const ProfilePage(),
-  },);
-
-      }
+        '/login': (context) => const LoginPage(),
+      },
+    );
   }
-// Splash screen and app initialization combined
+}
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -41,16 +44,41 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _initializeApp();
+    _navigateBasedOnAuthState();
   }
 
-  Future<void> _initializeApp() async {
-    await Future.delayed(const Duration(seconds: 5)); 
+Future<void> _navigateBasedOnAuthState() async {
+  await Future.delayed(const Duration(seconds: 2));
 
-    if (!mounted) return; 
+  final user = FirebaseAuth.instance.currentUser;
+  if (!mounted) return;
 
+  if (user == null) {
+    if (!mounted) return;
+    Navigator.pushReplacementNamed(context, '/login');
+    return;
+  }
+
+  final uid = user.uid;
+  final doc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+  final data = doc.data();
+  if (!doc.exists || data == null || !data.containsKey('role')) {
+    if (!mounted) return;
+    Navigator.pushReplacementNamed(context, '/login');
+    return;
+  }
+
+  final role = data['role'];
+
+  if (!mounted) return;
+
+  if (role == 'admin') {
+    Navigator.pushReplacementNamed(context, '/home');
+  } else {
     Navigator.pushReplacementNamed(context, '/home');
   }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -64,4 +92,3 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
-
