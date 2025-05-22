@@ -3,7 +3,8 @@ import 'package:csv/csv.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import '../widgets/main_nav_button.dart';
 import '../widgets/bottom_nav_bar.dart';
-import '../utils/screen_utils.dart'; // Assuming ScreenUtils is in this path
+import '../utils/screen_utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,6 +14,7 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _selectedIndex = 0;
 
   Future<List<List<dynamic>>> loadCSV(String fileName) async {
@@ -38,9 +40,40 @@ class HomePageState extends State<HomePage> {
     }
   }
 
+  void _logout() async {
+    await FirebaseAuth.instance.signOut();
+  if (!mounted) return;
+  Navigator.pushReplacementNamed(context, '/login');
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: Drawer(
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Align(
+                alignment: Alignment.topRight,
+                child: IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ),
+              const Divider(),
+              ListTile(
+                leading: const Icon(Icons.logout),
+                title: const Text('Logout'),
+                onTap: _logout,
+              ),
+            ],
+          ),
+        ),
+      ),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text(
@@ -58,7 +91,7 @@ class HomePageState extends State<HomePage> {
             child: IconButton(
               icon: const Icon(Icons.menu),
               onPressed: () {
-                // Handle menu press
+                _scaffoldKey.currentState?.openDrawer();
               },
             ),
           ),
