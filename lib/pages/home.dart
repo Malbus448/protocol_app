@@ -15,36 +15,17 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  int _selectedIndex = 0;
 
   Future<List<List<dynamic>>> loadCSV(String fileName) async {
     final rawData = await rootBundle.loadString('assets/$fileName');
-    List<List<dynamic>> csvData = const CsvToListConverter().convert(rawData);
-    return csvData;
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    switch (index) {
-      case 0:
-        break;
-      case 1:
-        Navigator.pushNamed(context, '/business');
-        break;
-      case 2:
-        Navigator.pushNamed(context, '/school');
-        break;
-    }
+    return const CsvToListConverter().convert(rawData);
   }
 
   void _logout() async {
     await FirebaseAuth.instance.signOut();
-  if (!mounted) return;
-  Navigator.pushReplacementNamed(context, '/login');
-}
+    if (!mounted) return;
+    Navigator.pushReplacementNamed(context, '/login');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,53 +87,39 @@ class HomePageState extends State<HomePage> {
             children: [
               buildMainNavButton(context, 'Protocols', () async {
                 var csvData = await loadCSV('csv/protocols.csv');
-                if (context.mounted) {
-                  Navigator.pushNamed(
-                    context,
-                    '/listviewpage',
-                    arguments: {
-                      'title': 'Protocols',
-                      'csvData': csvData,
-                    },
-                  );
-                }
+                if (!context.mounted) return;
+                Navigator.pushNamed(
+                  context,
+                  '/listviewpage',
+                  arguments: {'title': 'Protocols', 'csvData': csvData},
+                );
               }),
               const SizedBox(height: 16),
               buildMainNavButton(context, 'Drug Monographs', () async {
                 var csvData = await loadCSV('csv/drug_monograph.csv');
-                if (context.mounted) {
-                  Navigator.pushNamed(
-                    context,
-                    '/listviewpage',
-                    arguments: {
-                      'title': 'Drug Monographs',
-                      'csvData': csvData,
-                    },
-                  );
-                }
+                if (!context.mounted) return;
+                Navigator.pushNamed(
+                  context,
+                  '/listviewpage',
+                  arguments: {'title': 'Drug Monographs', 'csvData': csvData},
+                );
               }),
               const SizedBox(height: 16),
               buildMainNavButton(context, 'Operations', () async {
                 var csvData = await loadCSV('csv/operations.csv');
-                if (context.mounted) {
-                  Navigator.pushNamed(
-                    context,
-                    '/listviewpage',
-                    arguments: {
-                      'title': 'Operations',
-                      'csvData': csvData,
-                    },
-                  );
-                }
+                if (!context.mounted) return;
+                Navigator.pushNamed(
+                  context,
+                  '/listviewpage',
+                  arguments: {'title': 'Operations', 'csvData': csvData},
+                );
               }),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
+      bottomNavigationBar: const BottomNavBar(currentIndex: 0),
     );
   }
 }
+

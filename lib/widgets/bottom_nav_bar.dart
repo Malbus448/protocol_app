@@ -5,19 +5,22 @@ class BottomNavBar extends StatelessWidget {
 
   const BottomNavBar({
     super.key,
-    required this.currentIndex, required void Function(int index) onTap,
+    required this.currentIndex,
   });
 
   void _onItemTapped(BuildContext context, int index) {
     switch (index) {
       case 0:
-        Navigator.pushNamed(context, '/home');
+        Navigator.pushReplacementNamed(context, '/home');
         break;
       case 1:
-        Navigator.pushNamed(context, '/profile_page');
+        Navigator.pushReplacementNamed(context, '/profile_page'); // change to proper route
         break;
       case 2:
-        Navigator.pushNamed(context, '/profile_page');
+        Navigator.pushReplacementNamed(context, '/profile_page'); // change to proper route
+        break;
+      case 3:
+        Navigator.pushReplacementNamed(context, '/profile_page');
         break;
     }
   }
@@ -25,6 +28,7 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
@@ -35,13 +39,19 @@ class BottomNavBar extends StatelessWidget {
           label: 'Assets',
         ),
         BottomNavigationBarItem(
+          icon: Icon(Icons.contact_page),
+          label: 'Contacts',
+        ),
+        BottomNavigationBarItem(
           icon: Icon(Icons.person),
           label: 'Profile',
         ),
       ],
       currentIndex: currentIndex,
       selectedItemColor: Colors.blue,
+      unselectedItemColor: Colors.black,
       onTap: (index) => _onItemTapped(context, index),
     );
   }
 }
+
