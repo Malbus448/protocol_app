@@ -7,6 +7,9 @@ import 'pages/list_view_page.dart';
 import 'pages/monograph_display_page.dart';
 import 'pages/profile.dart';
 import 'pages/login_page.dart';
+import 'pages/uploads.dart';
+import 'pages/contact.dart';
+import 'pages/building.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -23,11 +26,16 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const SplashScreen(),
+        '/login': (context) => const LoginPage(),
         '/home': (context) => const HomePage(),
+        '/building_page': (context) => const BuildingPage(),
+        '/profile_page': (context) => const ProfilePage(),
+        '/uploads_page': (context) => const UploadsPage(),
+        '/contacts_page': (context) => const ContactsPage(),
         '/listviewpage': (context) => const ListViewPage(),
         '/monograph_display_page': (context) => const MonographDisplayPage(),
-        '/profile_page': (context) => const ProfilePage(),
-        '/login': (context) => const LoginPage(),
+        
+        
       },
     );
   }
