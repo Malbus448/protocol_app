@@ -80,7 +80,7 @@ class _SplashScreenState extends State<SplashScreen> {
       return;
     }
 
-    final role = data['role'];
+    //final role = data['role'];
 
     if (!mounted) return;
     Navigator.pushReplacementNamed(context, '/home'); // You can branch this based on role if needed
