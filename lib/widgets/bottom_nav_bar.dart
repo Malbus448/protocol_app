@@ -17,7 +17,7 @@ class BottomNavBar extends StatelessWidget {
         Navigator.pushNamed(context, '/building_page'); // change to proper route
         break;
       case 2:
-        Navigator.pushNamed(context, '/building_page'); // change to proper route
+        Navigator.pushNamed(context, '/contacts_page'); // change to proper route
         break;
       case 3:
         Navigator.pushNamed(context, '/profile_page');

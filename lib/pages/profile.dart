@@ -43,11 +43,12 @@ class ProfilePage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const CircleAvatar(
-                    radius: 50,
-                    backgroundColor: Colors.grey,
-                    child: Icon(Icons.person, size: 50, color: Colors.white),
-                  ),
+                  CircleAvatar(
+                          radius: 50,
+                          backgroundImage: (data['photoUrl'] != null && data['photoUrl'].toString().trim().isNotEmpty)
+                          ? NetworkImage(data['photoUrl'])
+                          : const AssetImage('assets/images/profile_placeholder.jpeg') as ImageProvider,
+                        ),
                   const SizedBox(height: 20),
                   Text('Name: $name', style: const TextStyle(fontSize: 18)),
                   const SizedBox(height: 10),
