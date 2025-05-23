@@ -10,6 +10,7 @@ import 'pages/login_page.dart';
 import 'pages/uploads.dart';
 import 'pages/contact.dart';
 import 'pages/building.dart';
+import 'pages/schedule.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
         '/contacts_page': (context) => const ContactsPage(),
         '/listviewpage': (context) => const ListViewPage(),
         '/monograph_display_page': (context) => const MonographDisplayPage(),
-        
+        '/schedule_page': (context) => const SchedulePage(), 
         
       },
     );

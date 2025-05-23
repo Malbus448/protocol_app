@@ -9,6 +9,7 @@ class ScreenUtils {
   static double height(BuildContext context, double fraction) {
     return MediaQuery.of(context).size.height * fraction;
   }
+  
 
   static double fontSize(BuildContext context, double fraction) {
     return MediaQuery.of(context).size.height * fraction;

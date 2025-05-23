@@ -3,6 +3,7 @@ import 'package:csv/csv.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import '../widgets/main_nav_button.dart';
 import '../widgets/bottom_nav_bar.dart';
+import '../widgets/app_drawer.dart';
 import '../utils/screen_utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -31,30 +32,7 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer: Drawer(
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: IconButton(
-                  icon: const Icon(Icons.close),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ),
-              const Divider(),
-              ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text('Logout'),
-                onTap: _logout,
-              ),
-            ],
-          ),
-        ),
-      ),
+      drawer: AppDrawer(onLogout: _logout),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text(
@@ -122,4 +100,3 @@ class HomePageState extends State<HomePage> {
     );
   }
 }
-
