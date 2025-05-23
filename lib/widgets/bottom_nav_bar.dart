@@ -14,13 +14,13 @@ class BottomNavBar extends StatelessWidget {
         Navigator.pushReplacementNamed(context, '/home');
         break;
       case 1:
-        Navigator.pushReplacementNamed(context, '/building_page'); // change to proper route
+        Navigator.pushNamed(context, '/building_page'); // change to proper route
         break;
       case 2:
-        Navigator.pushReplacementNamed(context, '/building_page'); // change to proper route
+        Navigator.pushNamed(context, '/building_page'); // change to proper route
         break;
       case 3:
-        Navigator.pushReplacementNamed(context, '/building_page');
+        Navigator.pushNamed(context, '/profile_page');
         break;
     }
   }
