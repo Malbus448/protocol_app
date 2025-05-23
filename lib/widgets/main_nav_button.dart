@@ -10,8 +10,8 @@ Widget buildMainNavButton(BuildContext context, String text, VoidCallback onPres
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.blue,
-          foregroundColor: Colors.black,
+          backgroundColor: Color(0xFF2A5F8B),
+          foregroundColor: Color(0xFFE5E5E5),
           elevation: 5,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
@@ -34,7 +34,8 @@ Widget buildMainNavButton(BuildContext context, String text, VoidCallback onPres
         overflow: TextOverflow.ellipsis,
       ),
     ),
-    Icon(Icons.arrow_forward, size: ScreenUtils.height(context, 0.04)),
+    Icon(Icons.arrow_forward, size: ScreenUtils.height(context, 0.04),
+          color: Color(0xFFE5E5E5),),
   ],
 )
         ),

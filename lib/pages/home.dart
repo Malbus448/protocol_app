@@ -40,6 +40,7 @@ class HomePageState extends State<HomePage> {
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
+            color: Color(0xFFE5E5E5)
           ),
         ),
         actions: [
@@ -49,6 +50,7 @@ class HomePageState extends State<HomePage> {
             ),
             child: IconButton(
               icon: const Icon(Icons.menu),
+              color: Color(0xFFE5E5E5),
               onPressed: () {
                 _scaffoldKey.currentState?.openDrawer();
               },
@@ -56,7 +58,7 @@ class HomePageState extends State<HomePage> {
           ),
         ],
         centerTitle: true,
-        backgroundColor: Colors.blue,
+        backgroundColor: Color(0xFF2A5F8B),
       ),
       body: SafeArea(
         child: Center(
