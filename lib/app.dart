@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-//import 'package:firebase_auth/firebase_auth.dart';
-//import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'pages/home.dart';
 import 'pages/list_view_page.dart';
@@ -35,8 +35,7 @@ class MyApp extends StatelessWidget {
         '/contacts_page': (context) => const ContactsPage(),
         '/listviewpage': (context) => const ListViewPage(),
         '/monograph_display_page': (context) => const MonographDisplayPage(),
-        '/schedule_page': (context) => const SchedulePage(), 
-        
+        '/schedule_page': (context) => const SchedulePage(),
       },
     );
   }
@@ -55,47 +54,46 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     _navigateBasedOnAuthState();
   }
-  // TEMP
+
+  // TEMP COMMENT OUT FROM HERE: Skip auth check and go straight to /home during development
   Future<void> _navigateBasedOnAuthState() async {
     await Future.delayed(const Duration(seconds: 1));
     if (!mounted) return;
+    Navigator.pushReplacementNamed(context, '/home');
+  }
+// TO HERE
 
-  // TEMP: Skip auth checks and go directly to home for development
-  Navigator.pushReplacementNamed(context, '/home');
-}
+// COMMENT OUT FROM HERE
+//   Future<void> _navigateBasedOnAuthState() async {
+//     await Future.delayed(const Duration(seconds: 2));
 
-// Future<void> _navigateBasedOnAuthState() async {
-//   await Future.delayed(const Duration(seconds: 2));
-
-//   final user = FirebaseAuth.instance.currentUser;
-//   if (!mounted) return;
-
-//   if (user == null) {
+//     final user = FirebaseAuth.instance.currentUser;
 //     if (!mounted) return;
-//     Navigator.pushReplacementNamed(context, '/login');
-//     return;
+
+//     if (user == null) {
+//       Navigator.pushReplacementNamed(context, '/login');
+//       return;
+//     }
+
+//     final uid = user.uid;
+//     final doc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+//     final data = doc.data();
+//     if (!doc.exists || data == null || !data.containsKey('role')) {
+//       Navigator.pushReplacementNamed(context, '/login');
+//       return;
+//     }
+
+//     final role = data['role'];
+
+//     if (role == 'admin') {
+//       Navigator.pushReplacementNamed(context, '/home');
+//     } else {
+//       Navigator.pushReplacementNamed(context, '/home');
+//     }
 //   }
+// // TO HERE
 
-//   final uid = user.uid;
-//   final doc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
-
-//   final data = doc.data();
-//   if (!doc.exists || data == null || !data.containsKey('role')) {
-//     if (!mounted) return;
-//     Navigator.pushReplacementNamed(context, '/login');
-//     return;
-//   }
-
-//   final role = data['role'];
-
-//   if (!mounted) return;
-
-//   if (role == 'admin') {
-//     Navigator.pushReplacementNamed(context, '/home');
-//   } else {
-//     Navigator.pushReplacementNamed(context, '/home');
-//   }
-// }
 
   @override
   Widget build(BuildContext context) {
