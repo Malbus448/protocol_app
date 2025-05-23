@@ -86,12 +86,12 @@ class HomePageState extends State<HomePage> {
               }),
               const SizedBox(height: 16),
               buildMainNavButton(context, 'Operations', () async {
-                var csvData = await loadCSV('csv/operations.csv');
+               // var csvData = await loadCSV('csv/operations.csv');
                 if (!context.mounted) return;
                 Navigator.pushNamed(
                   context,
-                  '/listviewpage',
-                  arguments: {'title': 'Operations', 'csvData': csvData},
+                  '/operations_page',
+                 // arguments: {'title': 'Operations', 'csvData': csvData},
                 );
               }),
             ],

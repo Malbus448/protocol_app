@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:protocol_app/pages/operations_page.dart';
 
 import 'pages/home.dart';
 import 'pages/list_view_page.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         '/contacts_page': (context) => const ContactsPage(),
         '/listviewpage': (context) => const ListViewPage(),
         '/monograph_display_page': (context) => const MonographDisplayPage(),
+        '/operations_page': (context) => const OperationsPage(),
         '/schedule_page': (context) => const SchedulePage(),
       },
     );
