@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../widgets/app_bar.dart';
+import '../widgets/bottom_nav_bar.dart';
 
 class ContactsPage extends StatelessWidget {
   const ContactsPage({super.key});
@@ -63,6 +64,7 @@ class ContactsPage extends StatelessWidget {
           );
         },
       ),
+      bottomNavigationBar: const BottomNavBar(currentIndex: 2)
     );
   }
 }

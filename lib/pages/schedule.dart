@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/app_bar.dart';
+import '../widgets/bottom_nav_bar.dart';
 
 class SchedulePage extends StatelessWidget {
   const SchedulePage({super.key});
@@ -14,6 +15,8 @@ class SchedulePage extends StatelessWidget {
           style: TextStyle(fontSize: 18),
         ),
       ),
+     bottomNavigationBar: const BottomNavBar(currentIndex: 0),
+
     );
   }
 }
