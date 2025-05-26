@@ -11,7 +11,7 @@ import 'pages/login_page.dart';
 import 'pages/uploads.dart';
 import 'pages/contact.dart';
 import 'pages/building.dart';
-import 'pages/schedule.dart';
+import 'pages/schedule_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
