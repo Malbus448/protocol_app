@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:protocol_app/pages/admin_page.dart';
 import 'package:protocol_app/pages/operations_page.dart';
 
 import 'pages/home.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const SplashScreen(),
         '/login': (context) => const LoginPage(),
         '/home': (context) => const HomePage(),
+        '/admin_page': (context) => const AdminPage(),
         '/building_page': (context) => const BuildingPage(),
         '/profile_page': (context) => const ProfilePage(),
         '/uploads_page': (context) => const UploadsPage(),
