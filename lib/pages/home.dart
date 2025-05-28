@@ -101,14 +101,13 @@ class HomePageState extends State<HomePage> {
               }),
               const SizedBox(height: 16),
               buildMainNavButton(context, 'Drug Monographs', () async {
-                var csvData = await loadCSV('csv/drug_monograph.csv');
                 if (!context.mounted) return;
                 Navigator.pushNamed(
                   context,
-                  '/listviewpage',
-                  arguments: {'title': 'Drug Monographs', 'csvData': csvData},
-                );
-              }),
+                    '/listviewpage',
+                  arguments: {'title': 'Drug Monographs', 'source': 'drug_monographs'},
+                 );
+               }),
               const SizedBox(height: 16),
               buildMainNavButton(context, 'Operations', () async {
                 if (!context.mounted) return;

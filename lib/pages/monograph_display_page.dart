@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/app_bar.dart';
-import '../widgets/bottom_nav_bar.dart'; // Ensure this path is correct
+import '../widgets/bottom_nav_bar.dart';
 
 class MonographDisplayPage extends StatelessWidget {
   const MonographDisplayPage({super.key});
@@ -21,11 +21,13 @@ class MonographDisplayPage extends StatelessWidget {
     return Scaffold(
       appBar: customAppBar(context, title),
       body: ListView.builder(
-        itemCount: rowData.length - 1,
+        itemCount: headerRow.length,
         itemBuilder: (context, index) {
+          final key = headerRow[index]?.toString() ?? 'N/A';
+          final value = rowData[index]?.toString() ?? 'N/A';
           return ListTile(
-            title: Text(headerRow[index + 1]?.toString() ?? 'N/A'),
-            subtitle: Text(rowData[index + 1]?.toString() ?? 'N/A'),
+            title: Text(key),
+            subtitle: Text(value),
           );
         },
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/bottom_nav_bar.dart';
+import '../widgets/main_nav_button.dart';
 
 class OperationsPage extends StatelessWidget {
   const OperationsPage({super.key});
@@ -9,10 +10,31 @@ class OperationsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar(context, 'Operations'),
-      body: Center(
-        child: Text('Operations Page'),
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              buildMainNavButton(context, 'Base Information', () {
+                Navigator.pushNamed(
+                  context,
+                  '/listviewpage',
+                  arguments: {'title': 'Base Information'},
+                );
+              }),
+             buildMainNavButton(context, 'Other', () {
+                Navigator.pushNamed(
+                  context,
+                  '/listviewpage',
+                  arguments: {'title': 'Other'},
+                );
+              }),
+            ],
+          ),
+        ),
       ),
-      bottomNavigationBar: BottomNavBar(currentIndex: 0),
+      bottomNavigationBar: const BottomNavBar(currentIndex: 0),
     );
   }
 }
+
