@@ -19,9 +19,6 @@ class BottomNavBar extends StatelessWidget {
       case 2:
         Navigator.pushNamed(context, '/contacts_page'); 
         break;
-      case 3:
-        Navigator.pushNamed(context, '/profile_page');
-        break;
     }
   }
 
@@ -42,10 +39,6 @@ class BottomNavBar extends StatelessWidget {
         BottomNavigationBarItem(
           icon: Icon(Icons.contact_page),
           label: 'Contacts',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Profile',
         ),
       ],
       currentIndex: currentIndex,

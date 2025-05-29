@@ -63,7 +63,7 @@ class ProfilePage extends StatelessWidget {
           );
         },
       ),
-      bottomNavigationBar: const BottomNavBar(currentIndex: 3),
+      bottomNavigationBar: const BottomNavBar(currentIndex: 0),
     );
   }
 }
