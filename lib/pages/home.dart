@@ -109,13 +109,14 @@ class HomePageState extends State<HomePage> {
                  );
                }),
               const SizedBox(height: 16),
-              buildMainNavButton(context, 'Operations', () async {
+                buildMainNavButton(context, 'Operations', () async {
                 if (!context.mounted) return;
-                Navigator.pushNamed(
+                  Navigator.pushNamed(
                   context,
-                  '/operations_page',
-                );
-              }),
+                    '/listviewpage',
+                  arguments: {'title': 'Operations', 'source': 'operations'},
+                  );
+               })
             ],
           ),
         ),

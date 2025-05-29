@@ -12,6 +12,8 @@ class ListViewPage extends StatelessWidget {
     final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
     final pageTitle = args?['title'] ?? 'List View';
     final sourceCollection = args?['source'] ?? 'drug_monographs';
+    final isBaseDescendant = args?['isBaseDescendant'] == true;
+
 
     return Scaffold(
       appBar: customAppBar(context, pageTitle),
@@ -31,6 +33,8 @@ class ListViewPage extends StatelessWidget {
           return CustomListView(
             docs: snapshot.data!.docs,
             title: pageTitle,
+              displayKey: 'Name',
+              extraKey: isBaseDescendant ? 'Location' : null,
           );
         },
       ),

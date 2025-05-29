@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:protocol_app/pages/admin_page.dart';
-import 'package:protocol_app/pages/operations_page.dart';
 
 import 'pages/home.dart';
 import 'pages/list_view_page.dart';
@@ -13,6 +12,7 @@ import 'pages/uploads.dart';
 import 'pages/contact.dart';
 import 'pages/building.dart';
 import 'pages/schedule_page.dart';
+import 'pages/base_profile_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -34,11 +34,11 @@ class MyApp extends StatelessWidget {
         '/admin_page': (context) => const AdminPage(),
         '/building_page': (context) => const BuildingPage(),
         '/profile_page': (context) => const ProfilePage(),
+        '/base_profile_page': (context) => const BaseProfilePage(),
         '/uploads_page': (context) => const UploadsPage(),
         '/contacts_page': (context) => const ContactsPage(),
         '/listviewpage': (context) => const ListViewPage(),
         '/monograph_display_page': (context) => const MonographDisplayPage(),
-        '/operations_page': (context) => const OperationsPage(),
         '/schedule_page': (context) => const SchedulePage(),
       },
     );
