@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../widgets/app_bar.dart';
-import '../widgets/bottom_nav_bar.dart';
+import '../widgets/app_shell.dart';
 
 class BaseProfilePage extends StatelessWidget {
   const BaseProfilePage({super.key});
@@ -22,8 +21,9 @@ class BaseProfilePage extends StatelessWidget {
     final doorCode = data['Door Code'] ?? 'N/A';
     final info = data['Additional Information'] ?? 'N/A';
 
-    return Scaffold(
-      appBar: customAppBar(context, name),
+    return AppShell(
+      title: name,
+      bottomNavIndex: 0,
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Center(
@@ -55,7 +55,6 @@ class BaseProfilePage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomNavBar(currentIndex: 0),
     );
   }
 }

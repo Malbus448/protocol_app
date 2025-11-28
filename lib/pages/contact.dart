@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../widgets/app_bar.dart';
-import '../widgets/bottom_nav_bar.dart';
+import '../widgets/app_shell.dart';
 import '../utils/data_cache.dart';
 import '../utils/responsive.dart';
 
@@ -11,8 +10,9 @@ class ContactsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final responsive = ResponsiveConfig.of(context);
-    return Scaffold(
-      appBar: customAppBar(context, 'Contacts'),
+    return AppShell(
+      title: 'Contacts',
+      bottomNavIndex: 2,
       body: FutureBuilder<List<QueryDocumentSnapshot>>(
         future: DataCache.getContacts(),
         builder: (context, snapshot) {
@@ -82,7 +82,6 @@ class ContactsPage extends StatelessWidget {
           );
         },
       ),
-      bottomNavigationBar: const BottomNavBar(currentIndex: 2),
     );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/app_bar.dart';
-import '../widgets/bottom_nav_bar.dart';
+import '../widgets/app_shell.dart';
 
 class MonographDisplayPage extends StatelessWidget {
   const MonographDisplayPage({super.key});
@@ -18,8 +17,9 @@ class MonographDisplayPage extends StatelessWidget {
     final rowData = args['rowData'] as List<dynamic>;
     final headerRow = args['headerRow'] as List<dynamic>;
 
-    return Scaffold(
-      appBar: customAppBar(context, title),
+    return AppShell(
+      title: title,
+      bottomNavIndex: 0,
       body: ListView.builder(
         itemCount: headerRow.length,
         itemBuilder: (context, index) {
@@ -28,7 +28,6 @@ class MonographDisplayPage extends StatelessWidget {
           return ListTile(title: Text(key), subtitle: Text(value));
         },
       ),
-      bottomNavigationBar: const BottomNavBar(currentIndex: 0),
     );
   }
 }

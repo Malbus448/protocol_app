@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../widgets/app_bar.dart';
-import '../widgets/bottom_nav_bar.dart';
+import '../widgets/app_shell.dart';
 import '../widgets/schedule.dart';
 
 class SchedulePage extends StatefulWidget {
@@ -38,10 +37,10 @@ class _SchedulePageState extends State<SchedulePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: customAppBar(context, _scheduleTitle ?? 'Schedule'),
+    return AppShell(
+      title: _scheduleTitle ?? 'Schedule',
+      bottomNavIndex: 0,
       body: const ScheduleWidget(),
-      bottomNavigationBar: const BottomNavBar(currentIndex: 0),
     );
   }
 }

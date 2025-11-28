@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../widgets/app_shell.dart';
 
 class ScreenUtils {
   static double width(BuildContext context, double fraction) {
@@ -20,8 +21,9 @@ class BuildingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
+    return AppShell(
+      title: 'Assets',
+      bottomNavIndex: 1,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(ScreenUtils.width(context, 0.04)),

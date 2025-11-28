@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../widgets/list_view.dart';
-import '../widgets/app_bar.dart';
-import '../widgets/bottom_nav_bar.dart';
+import '../widgets/app_shell.dart';
 import '../utils/data_cache.dart';
 import '../utils/responsive.dart';
 
@@ -18,8 +17,9 @@ class ListViewPage extends StatelessWidget {
     final isBaseDescendant = args?['isBaseDescendant'] == true;
     final responsive = ResponsiveConfig.of(context);
 
-    return Scaffold(
-      appBar: customAppBar(context, pageTitle),
+    return AppShell(
+      title: pageTitle,
+      bottomNavIndex: 0,
       body: FutureBuilder<List<QueryDocumentSnapshot>>(
         future: DataCache.getCollectionOrderedByName(sourceCollection),
         builder: (context, snapshot) {
@@ -43,7 +43,6 @@ class ListViewPage extends StatelessWidget {
           );
         },
       ),
-      bottomNavigationBar: const BottomNavBar(currentIndex: 0),
     );
   }
 }
