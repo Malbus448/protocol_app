@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -272,45 +270,43 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  StreamSubscription<User?>? _authSubscription;
-
   @override
   void initState() {
     super.initState();
-    _authSubscription =
-        FirebaseAuth.instance.authStateChanges().listen(_handleAuthState);
+    _navigateBasedOnAuthState();
   }
 
-  @override
-  void dispose() {
-    _authSubscription?.cancel();
-    super.dispose();
-  }
+  Future<void> _navigateBasedOnAuthState() async {
+    await Future.delayed(const Duration(seconds: 2));
 
-  Future<void> _handleAuthState(User? user) async {
+    if (!mounted) return;
+    final user = FirebaseAuth.instance.currentUser;
+
     if (!mounted) return;
     if (user == null) {
       Navigator.pushReplacementNamed(context, '/login');
       return;
     }
 
-    try {
-      final doc =
-          await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
-      final data = doc.data();
+    final uid = user.uid;
+    final doc =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
 
-      if (!doc.exists || data == null || !data.containsKey('role')) {
-        if (!mounted) return;
-        Navigator.pushReplacementNamed(context, '/login');
-        return;
-      }
+    if (!mounted) return;
+    final data = doc.data();
 
-      if (!mounted) return;
-      Navigator.pushReplacementNamed(context, '/home'); // branch on role if needed
-    } catch (_) {
-      if (!mounted) return;
+    if (!doc.exists || data == null || !data.containsKey('role')) {
       Navigator.pushReplacementNamed(context, '/login');
+      return;
     }
+
+    //final role = data['role'];
+
+    if (!mounted) return;
+    Navigator.pushReplacementNamed(
+      context,
+      '/home',
+    ); // You can branch this based on role if needed
   }
 
   @override
