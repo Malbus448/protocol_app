@@ -14,12 +14,13 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Container(
       decoration: BoxDecoration(
-        border: const Border(
-          right: BorderSide(color: Color(0xFFB21232), width: 2),
-          top: BorderSide(color: Color(0xFFB21232), width: 2),
-          bottom: BorderSide(color: Color(0xFFB21232), width: 2),
+        border: Border(
+          right: BorderSide(color: colorScheme.tertiary, width: 2),
+          top: BorderSide(color: colorScheme.tertiary, width: 2),
+          bottom: BorderSide(color: colorScheme.tertiary, width: 2),
         ),
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(16),

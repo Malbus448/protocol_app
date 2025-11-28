@@ -60,14 +60,7 @@ class HomePageState extends State<HomePage> {
       drawer: AppDrawer(onLogout: _logout, userRole: userRole!),
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text(
-          'Home Page',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFFE5E5E5),
-          ),
-        ),
+        title: const Text('Home Page'),
         actions: [
           Padding(
             padding: EdgeInsets.only(
@@ -75,7 +68,6 @@ class HomePageState extends State<HomePage> {
             ),
             child: IconButton(
               icon: const Icon(Icons.menu),
-              color: Color(0xFFE5E5E5),
               onPressed: () {
                 _scaffoldKey.currentState?.openDrawer();
               },
@@ -83,7 +75,6 @@ class HomePageState extends State<HomePage> {
           ),
         ],
         centerTitle: true,
-        backgroundColor: const Color(0xFF2A5F8B),
       ),
       body: SafeArea(
         child: Center(

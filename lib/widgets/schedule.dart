@@ -181,6 +181,8 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
       return const Center(child: CircularProgressIndicator());
     }
 
+    final colorScheme = Theme.of(context).colorScheme;
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -216,7 +218,7 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
                   padding: EdgeInsets.all(ScreenUtils.height(context, 0.003)),
                   margin: EdgeInsets.all(ScreenUtils.height(context, 0.001)),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey.shade300),
+                    border: Border.all(color: colorScheme.surfaceVariant),
                   ),
                   child: Stack(
                     children: [
@@ -263,8 +265,8 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
                   padding: EdgeInsets.all(ScreenUtils.height(context, 0.003)),
                   margin: EdgeInsets.all(ScreenUtils.height(context, 0.001)),
                   decoration: BoxDecoration(
-                    color: Colors.blue.shade100,
-                    border: Border.all(color: Colors.blue, width: 1.5),
+                    color: colorScheme.secondaryContainer,
+                    border: Border.all(color: colorScheme.secondary, width: 1.5),
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Stack(
@@ -289,12 +291,18 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
                           children: [
                             Text(
                               'Medic: ${roles['Medic'] ?? ''}',
-                              style: TextStyle(fontSize: ScreenUtils.fontSize(context, 0.013)),
+                              style: TextStyle(
+                                fontSize: ScreenUtils.fontSize(context, 0.013),
+                                color: colorScheme.onSecondaryContainer,
+                              ),
                               textAlign: TextAlign.center,
                             ),
                             Text(
                               'Rescue Tech: ${roles['Rescue Tech'] ?? ''}',
-                              style: TextStyle(fontSize: ScreenUtils.fontSize(context, 0.013)),
+                              style: TextStyle(
+                                fontSize: ScreenUtils.fontSize(context, 0.013),
+                                color: colorScheme.onSecondaryContainer,
+                              ),
                               textAlign: TextAlign.center,
                             ),
                           ],
@@ -312,8 +320,8 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
                   padding: EdgeInsets.all(ScreenUtils.height(context, 0.003)),
                   margin: EdgeInsets.all(ScreenUtils.height(context, 0.001)),
                   decoration: BoxDecoration(
-                    color: Colors.blue.shade300,
-                    border: Border.all(color: Colors.blue.shade700, width: 2),
+                    color: colorScheme.secondary,
+                    border: Border.all(color: colorScheme.primary, width: 2),
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Stack(
@@ -339,12 +347,18 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
                           children: [
                             Text(
                               'Medic: ${roles['Medic'] ?? ''}',
-                              style: TextStyle(fontSize: ScreenUtils.fontSize(context, 0.013), color: Colors.white),
+                              style: TextStyle(
+                                fontSize: ScreenUtils.fontSize(context, 0.013),
+                                color: colorScheme.onSecondary,
+                              ),
                               textAlign: TextAlign.center,
                             ),
                             Text(
                               'Rescue Tech: ${roles['Rescue Tech'] ?? ''}',
-                              style: TextStyle(fontSize: ScreenUtils.fontSize(context, 0.013), color: Colors.white),
+                              style: TextStyle(
+                                fontSize: ScreenUtils.fontSize(context, 0.013),
+                                color: colorScheme.onSecondary,
+                              ),
                               textAlign: TextAlign.center,
                             ),
                           ],

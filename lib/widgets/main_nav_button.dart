@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../utils/screen_utils.dart';
 
 Widget buildMainNavButton(BuildContext context, String text, VoidCallback onPressed) {
+  final colorScheme = Theme.of(context).colorScheme;
   return Padding(
     padding: EdgeInsets.symmetric(vertical: ScreenUtils.height(context, 0.01)),
     child: SizedBox(
@@ -10,8 +11,8 @@ Widget buildMainNavButton(BuildContext context, String text, VoidCallback onPres
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFF2A5F8B),
-          foregroundColor: Color(0xFFE5E5E5),
+          backgroundColor: colorScheme.primary,
+          foregroundColor: colorScheme.onPrimary,
           elevation: 5,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
@@ -35,7 +36,7 @@ Widget buildMainNavButton(BuildContext context, String text, VoidCallback onPres
       ),
     ),
     Icon(Icons.arrow_forward, size: ScreenUtils.height(context, 0.04),
-          color: Color(0xFFE5E5E5),),
+          color: colorScheme.onPrimary,),
   ],
 )
         ),

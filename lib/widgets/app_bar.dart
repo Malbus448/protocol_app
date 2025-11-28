@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import '../utils/screen_utils.dart';
 
 PreferredSizeWidget customAppBar(BuildContext context, String title) {
+  final colorScheme = Theme.of(context).colorScheme;
+  final textTheme = Theme.of(context).textTheme;
   return AppBar(
     title: Text(
       title,
-      style: TextStyle(
+      style: textTheme.titleLarge?.copyWith(
         fontSize: ScreenUtils.fontSize(context, 0.035),
-        fontWeight: FontWeight.bold,
-        color: Color(0xFFE5E5E5),
+        color: colorScheme.onPrimary,
       ),
     ),
     centerTitle: true,
-    backgroundColor: Color(0xFF2A5F8B),
+    backgroundColor: colorScheme.primary,
+    foregroundColor: colorScheme.onPrimary,
   );
 }

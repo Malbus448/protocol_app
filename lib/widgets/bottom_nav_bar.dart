@@ -24,8 +24,10 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     return BottomNavigationBar(
-      backgroundColor: Color(0xFFE5E5E5),
+      backgroundColor: theme.bottomNavigationBarTheme.backgroundColor,
       type: BottomNavigationBarType.fixed,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
@@ -42,10 +44,9 @@ class BottomNavBar extends StatelessWidget {
         ),
       ],
       currentIndex: currentIndex,
-      //selectedItemColor: Color(0xFFB21232),
-      unselectedItemColor: Color(0xFF2A5F8B),
+      selectedItemColor: colorScheme.primary,
+      unselectedItemColor: theme.bottomNavigationBarTheme.unselectedItemColor,
       onTap: (index) => _onItemTapped(context, index),
     );
   }
 }
-
