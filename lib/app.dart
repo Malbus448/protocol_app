@@ -11,6 +11,7 @@ import 'pages/list_view_page.dart';
 import 'pages/monograph_display_page.dart';
 import 'pages/profile.dart';
 import 'pages/login_page.dart';
+import 'pages/welcome_page.dart';
 import 'pages/uploads.dart';
 import 'pages/contact.dart';
 import 'pages/building.dart';
@@ -254,6 +255,7 @@ class MyApp extends StatelessWidget {
         '/building_page': (context) => const BuildingPage(),
         '/profile_page': (context) => const ProfilePage(),
         '/base_profile_page': (context) => const BaseProfilePage(),
+        '/welcome': (context) => const WelcomePage(),
         '/uploads_page': (context) => const UploadsPage(),
         '/contacts_page': (context) => const ContactsPage(),
         '/listviewpage': (context) => const ListViewPage(),
@@ -305,8 +307,18 @@ class _SplashScreenState extends State<SplashScreen> {
         return;
       }
 
+      final shouldShowWelcome = (data['firstLogin'] as bool?) != false;
+
       if (!mounted) return;
-      Navigator.pushReplacementNamed(context, '/home'); // branch on role if needed
+      if (shouldShowWelcome) {
+        Navigator.pushReplacementNamed(
+          context,
+          '/welcome',
+          arguments: {'name': data['Name'] ?? 'there', 'userId': user.uid},
+        );
+      } else {
+        Navigator.pushReplacementNamed(context, '/home'); // branch on role if needed
+      }
     } catch (_) {
       if (!mounted) return;
       Navigator.pushReplacementNamed(context, '/login');
