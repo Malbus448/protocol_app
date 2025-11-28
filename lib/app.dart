@@ -141,7 +141,7 @@ class MyApp extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          shadowColor: Colors.black.withOpacity(0.08),
+          shadowColor: Colors.black.withValues(alpha: 0.08),
         ),
         listTileTheme: const ListTileThemeData(
           contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -154,12 +154,12 @@ class MyApp extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(16)),
           ),
         ),
-        dividerColor: lightScheme.surfaceVariant,
+        dividerColor: lightScheme.surfaceContainerHighest,
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
         colorScheme: darkScheme,
-        scaffoldBackgroundColor: darkScheme.background,
+        scaffoldBackgroundColor: darkScheme.surface,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: buildTextTheme(
           ThemeData.dark().textTheme,
@@ -174,11 +174,13 @@ class MyApp extends StatelessWidget {
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: darkScheme.surfaceVariant),
+            borderSide:
+                BorderSide(color: darkScheme.surfaceContainerHighest),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: darkScheme.surfaceVariant),
+            borderSide:
+                BorderSide(color: darkScheme.surfaceContainerHighest),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
@@ -222,7 +224,7 @@ class MyApp extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          shadowColor: Colors.black.withOpacity(0.24),
+          shadowColor: Colors.black.withValues(alpha: 0.24),
         ),
         listTileTheme: ListTileThemeData(
           contentPadding: const EdgeInsets.symmetric(
@@ -238,7 +240,7 @@ class MyApp extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(16)),
           ),
         ),
-        dividerColor: darkScheme.surfaceVariant,
+        dividerColor: darkScheme.surfaceContainerHighest,
       ),
       initialRoute: '/',
       routes: {

@@ -264,7 +264,7 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
                 ),
                 const SizedBox(width: 12),
                 _LegendDot(
-                  color: colorScheme.surfaceVariant,
+                  color: colorScheme.surfaceContainerHighest,
                   label: 'Available',
                   onColor: colorScheme.onSurfaceVariant,
                 ),
@@ -293,7 +293,7 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
                   padding: const EdgeInsets.all(8),
                   margin: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
-                    border: Border.all(color: colorScheme.surfaceVariant),
+                    border: Border.all(color: colorScheme.surfaceContainerHighest),
                     borderRadius: BorderRadius.circular(6),
                   ),
                   constraints: const BoxConstraints(minHeight: 72),
@@ -483,7 +483,7 @@ class _LegendDot extends StatelessWidget {
           decoration: BoxDecoration(
             color: color,
             shape: BoxShape.circle,
-            border: Border.all(color: Colors.black.withOpacity(0.05)),
+            border: Border.all(color: Colors.black.withValues(alpha: 0.05)),
           ),
         ),
         const SizedBox(width: 6),
