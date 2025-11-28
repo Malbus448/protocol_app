@@ -58,6 +58,7 @@ class HomePageState extends State<HomePage> {
     final responsive = ResponsiveConfig.of(context);
 
     return Scaffold(
+      extendBody: true,
       key: _scaffoldKey,
       drawer: AppDrawer(onLogout: _logout, userRole: userRole!),
       appBar: AppBar(
@@ -76,68 +77,85 @@ class HomePageState extends State<HomePage> {
         ],
         centerTitle: true,
       ),
-      body: SafeArea(
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.all(responsive.padding),
-            child: Container(
-              constraints: BoxConstraints(maxWidth: responsive.cardMaxWidth),
-              padding: EdgeInsets.symmetric(
-                horizontal: responsive.padding,
-                vertical: responsive.padding + 4,
-              ),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.05),
-                    blurRadius: responsive.size == SizeClass.large ? 16 : 12,
-                    offset: const Offset(0, 6),
-                  ),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          const DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xFF0F213A),
+                  Color(0xFF1CA6A8),
                 ],
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  buildMainNavButton(context, 'Protocols', () async {
-                    var csvData = await loadCSV('csv/protocols.csv');
-                    if (!context.mounted) return;
-                    Navigator.pushNamed(
-                      context,
-                      '/listviewpage',
-                      arguments: {'title': 'Protocols', 'csvData': csvData},
-                    );
-                  }),
-                  const SizedBox(height: 12),
-                  buildMainNavButton(context, 'Drug Monographs', () async {
-                    if (!context.mounted) return;
-                    Navigator.pushNamed(
-                      context,
-                      '/listviewpage',
-                      arguments: {
-                        'title': 'Drug Monographs',
-                        'source': 'drug_monographs',
-                      },
-                    );
-                  }),
-                  const SizedBox(height: 12),
-                  buildMainNavButton(context, 'Operations', () async {
-                    if (!context.mounted) return;
-                    Navigator.pushNamed(
-                      context,
-                      '/listviewpage',
-                      arguments: {
-                        'title': 'Operations',
-                        'source': 'operations',
-                      },
-                    );
-                  }),
-                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
             ),
           ),
-        ),
+          SafeArea(
+            child: Center(
+              child: Padding(
+                padding: EdgeInsets.all(responsive.padding),
+                child: Container(
+                  constraints: BoxConstraints(maxWidth: responsive.cardMaxWidth),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: responsive.padding,
+                    vertical: responsive.padding + 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.surface.withValues(alpha: 0.92),
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.05),
+                        blurRadius: responsive.size == SizeClass.large ? 16 : 12,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      buildMainNavButton(context, 'Protocols', () async {
+                        var csvData = await loadCSV('csv/protocols.csv');
+                        if (!context.mounted) return;
+                        Navigator.pushNamed(
+                          context,
+                          '/listviewpage',
+                          arguments: {'title': 'Protocols', 'csvData': csvData},
+                        );
+                      }),
+                      const SizedBox(height: 12),
+                      buildMainNavButton(context, 'Drug Monographs', () async {
+                        if (!context.mounted) return;
+                        Navigator.pushNamed(
+                          context,
+                          '/listviewpage',
+                          arguments: {
+                            'title': 'Drug Monographs',
+                            'source': 'drug_monographs',
+                          },
+                        );
+                      }),
+                      const SizedBox(height: 12),
+                      buildMainNavButton(context, 'Operations', () async {
+                        if (!context.mounted) return;
+                        Navigator.pushNamed(
+                          context,
+                          '/listviewpage',
+                          arguments: {
+                            'title': 'Operations',
+                            'source': 'operations',
+                          },
+                        );
+                      }),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: const BottomNavBar(currentIndex: 0),
     );
