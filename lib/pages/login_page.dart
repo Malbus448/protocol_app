@@ -12,8 +12,17 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _passwordFocusNode = FocusNode();
   bool _loading = false;
   String? _error;
+
+  void _submitIfValid() {
+    if (_loading) return;
+    final form = _formKey.currentState;
+    if (form != null && form.validate()) {
+      _login();
+    }
+  }
 
   Future<void> _login() async {
     setState(() {
@@ -39,6 +48,14 @@ class _LoginPageState extends State<LoginPage> {
         _loading = false;
       });
     }
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _passwordFocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -93,6 +110,8 @@ class _LoginPageState extends State<LoginPage> {
                         controller: _emailController,
                         decoration: const InputDecoration(labelText: 'Email'),
                         keyboardType: TextInputType.emailAddress,
+                        textInputAction: TextInputAction.next,
+                        onFieldSubmitted: (_) => FocusScope.of(context).requestFocus(_passwordFocusNode),
                         validator:
                             (value) =>
                                 value == null || value.isEmpty
@@ -106,6 +125,9 @@ class _LoginPageState extends State<LoginPage> {
                           labelText: 'Password',
                         ),
                         obscureText: true,
+                        focusNode: _passwordFocusNode,
+                        textInputAction: TextInputAction.done,
+                        onFieldSubmitted: (_) => _submitIfValid(),
                         validator:
                             (value) =>
                                 value == null || value.isEmpty
@@ -117,9 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                           ? const Center(child: CircularProgressIndicator())
                           : ElevatedButton(
                             onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                _login();
-                              }
+                              _submitIfValid();
                             },
                             child: const Text('Login'),
                           ),
