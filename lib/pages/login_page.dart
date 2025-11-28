@@ -92,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                       Text(
                         'Access protocols and scheduling with your account.',
                         style: textTheme.bodyMedium?.copyWith(
-                          color: colorScheme.onSurface.withOpacity(0.8),
+                          color: colorScheme.onSurface.withValues(alpha: 0.8),
                         ),
                         textAlign: TextAlign.center,
                       ),
