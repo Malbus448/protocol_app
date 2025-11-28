@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
   final VoidCallback onLogout;
-  final String userRole; // Expected values: 'user', 'editor', 'admin', 'super_admin'
+  final String
+  userRole; // Expected values: 'user', 'editor', 'admin', 'super_admin'
 
-  const AppDrawer({
-    super.key,
-    required this.onLogout,
-    required this.userRole,
-  });
+  const AppDrawer({super.key, required this.onLogout, required this.userRole});
 
   bool get isAdmin => userRole == 'admin' || userRole == 'super_admin';
 
@@ -67,32 +64,35 @@ class AppDrawer extends StatelessWidget {
               ),
 
               // THIS IS THE ORIGIN STORY SECTION START
-             ListTile(
-              leading: const Icon(Icons.info_outline),
-              title: const Text('About the app'),
-              onTap: () {
-                Navigator.of(context).pop(); // Close drawer first
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    contentPadding: const EdgeInsets.all(16),
-                    content: Stack(
-  children: [
-    Positioned(
-      top: 0,
-      right: 0,
-      child: IconButton(
-        icon: const Icon(Icons.close),
-        onPressed: () => Navigator.of(context).pop(),
-      ),
-    ),
-    Padding(
-      padding: const EdgeInsets.only(top: 40),
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.6, // 60% of screen height
-        child: const SingleChildScrollView(
-          child: Text(
-            '''The Origin of the App
+              ListTile(
+                leading: const Icon(Icons.info_outline),
+                title: const Text('About the app'),
+                onTap: () {
+                  Navigator.of(context).pop(); // Close drawer first
+                  showDialog(
+                    context: context,
+                    builder:
+                        (context) => AlertDialog(
+                          contentPadding: const EdgeInsets.all(16),
+                          content: Stack(
+                            children: [
+                              Positioned(
+                                top: 0,
+                                right: 0,
+                                child: IconButton(
+                                  icon: const Icon(Icons.close),
+                                  onPressed: () => Navigator.of(context).pop(),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 40),
+                                child: SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height *
+                                      0.6, // 60% of screen height
+                                  child: const SingleChildScrollView(
+                                    child: Text(
+                                      '''The Origin of the App
 It all started during a SARMED course in Banff, Alberta — in a firehall training room packed with more Macs than an Apple keynote. So many, in fact, that nicknames had to be assigned just to keep order. One of them, known henceforth as Mullet Mac, sat quietly absorbing the chaos.
 
 At some point, between scenario drills and caffeine refills, Mullet Mac turned to the room and asked a simple question:
@@ -111,21 +111,24 @@ And here we are.
 
 This app is dedicated to everyone involved with TEAAM — the individuals offering their time, skills, and heart to help others in emergency situations across BC’s remote and austere environments.
 You are expanding access to advanced medical care where it’s needed most — because geography should never determine the quality of care someone receives.''',
-            textAlign: TextAlign.left,
-          ),
-        ),
-      ),
-    ),
-  ],
-),
-                  ),
-                );
-              },
-            ),
- // THIS IS THE ORIGIN STORY SECTION END
+                                      textAlign: TextAlign.left,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                  );
+                },
+              ),
+              // THIS IS THE ORIGIN STORY SECTION END
               ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text('Logout'),
+                leading: Icon(Icons.logout, color: colorScheme.tertiary),
+                title: Text(
+                  'Logout',
+                  style: TextStyle(color: colorScheme.tertiary),
+                ),
                 onTap: onLogout,
               ),
             ],

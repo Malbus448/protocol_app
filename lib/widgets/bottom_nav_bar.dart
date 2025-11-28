@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 class BottomNavBar extends StatelessWidget {
   final int currentIndex;
 
-  const BottomNavBar({
-    super.key,
-    required this.currentIndex,
-  });
+  const BottomNavBar({super.key, required this.currentIndex});
 
   void _onItemTapped(BuildContext context, int index) {
     switch (index) {
@@ -14,10 +11,10 @@ class BottomNavBar extends StatelessWidget {
         Navigator.pushReplacementNamed(context, '/home');
         break;
       case 1:
-        Navigator.pushNamed(context, '/building_page'); 
+        Navigator.pushNamed(context, '/building_page');
         break;
       case 2:
-        Navigator.pushNamed(context, '/contacts_page'); 
+        Navigator.pushNamed(context, '/contacts_page');
         break;
     }
   }
@@ -30,10 +27,7 @@ class BottomNavBar extends StatelessWidget {
       backgroundColor: theme.bottomNavigationBarTheme.backgroundColor,
       type: BottomNavigationBarType.fixed,
       items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
         BottomNavigationBarItem(
           icon: Icon(Icons.file_present),
           label: 'Assets',

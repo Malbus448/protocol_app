@@ -23,13 +23,23 @@ class CustomListView extends StatelessWidget {
         final data = docs[index].data() as Map<String, dynamic>;
 
         final mainValue = data[displayKey] ?? '';
-        final extraValue = extraKey != null && data.containsKey(extraKey)
-            ? ' - ${data[extraKey]}'
-            : '';
+        final extraValue =
+            extraKey != null && data.containsKey(extraKey)
+                ? ' - ${data[extraKey]}'
+                : '';
         final itemTitle = '$mainValue$extraValue';
+        final theme = Theme.of(context);
 
         return ListTile(
-          title: Text(itemTitle),
+          title: Text(itemTitle, style: theme.textTheme.titleMedium),
+          trailing: Icon(
+            Icons.chevron_right,
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 12,
+          ),
           onTap: () {
             const fieldOrder = [
               'Name',

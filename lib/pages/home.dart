@@ -30,7 +30,8 @@ class HomePageState extends State<HomePage> {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) return;
 
-    final doc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    final doc =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
     setState(() {
       userRole = doc.data()?['role']?.toString().toLowerCase() ?? 'user';
     });
@@ -50,9 +51,7 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     if (userRole == null) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
     return Scaffold(
@@ -63,9 +62,7 @@ class HomePageState extends State<HomePage> {
         title: const Text('Home Page'),
         actions: [
           Padding(
-            padding: EdgeInsets.only(
-              right: ScreenUtils.width(context, 0.02),
-            ),
+            padding: EdgeInsets.only(right: ScreenUtils.width(context, 0.02)),
             child: IconButton(
               icon: const Icon(Icons.menu),
               onPressed: () {
@@ -78,37 +75,60 @@ class HomePageState extends State<HomePage> {
       ),
       body: SafeArea(
         child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              buildMainNavButton(context, 'Protocols', () async {
-                var csvData = await loadCSV('csv/protocols.csv');
-                if (!context.mounted) return;
-                Navigator.pushNamed(
-                  context,
-                  '/listviewpage',
-                  arguments: {'title': 'Protocols', 'csvData': csvData},
-                );
-              }),
-              const SizedBox(height: 16),
-              buildMainNavButton(context, 'Drug Monographs', () async {
-                if (!context.mounted) return;
-                Navigator.pushNamed(
-                  context,
-                    '/listviewpage',
-                  arguments: {'title': 'Drug Monographs', 'source': 'drug_monographs'},
-                 );
-               }),
-              const SizedBox(height: 16),
-                buildMainNavButton(context, 'Operations', () async {
-                if (!context.mounted) return;
-                  Navigator.pushNamed(
-                  context,
-                    '/listviewpage',
-                  arguments: {'title': 'Operations', 'source': 'operations'},
-                  );
-               })
-            ],
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.06),
+                    blurRadius: 12,
+                    offset: const Offset(0, 6),
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  buildMainNavButton(context, 'Protocols', () async {
+                    var csvData = await loadCSV('csv/protocols.csv');
+                    if (!context.mounted) return;
+                    Navigator.pushNamed(
+                      context,
+                      '/listviewpage',
+                      arguments: {'title': 'Protocols', 'csvData': csvData},
+                    );
+                  }),
+                  const SizedBox(height: 12),
+                  buildMainNavButton(context, 'Drug Monographs', () async {
+                    if (!context.mounted) return;
+                    Navigator.pushNamed(
+                      context,
+                      '/listviewpage',
+                      arguments: {
+                        'title': 'Drug Monographs',
+                        'source': 'drug_monographs',
+                      },
+                    );
+                  }),
+                  const SizedBox(height: 12),
+                  buildMainNavButton(context, 'Operations', () async {
+                    if (!context.mounted) return;
+                    Navigator.pushNamed(
+                      context,
+                      '/listviewpage',
+                      arguments: {
+                        'title': 'Operations',
+                        'source': 'operations',
+                      },
+                    );
+                  }),
+                ],
+              ),
+            ),
           ),
         ),
       ),

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import '../utils/screen_utils.dart';
 
-Widget buildMainNavButton(BuildContext context, String text, VoidCallback onPressed) {
+Widget buildMainNavButton(
+  BuildContext context,
+  String text,
+  VoidCallback onPressed,
+) {
   final colorScheme = Theme.of(context).colorScheme;
   return Padding(
     padding: EdgeInsets.symmetric(vertical: ScreenUtils.height(context, 0.01)),
@@ -23,23 +27,28 @@ Widget buildMainNavButton(BuildContext context, String text, VoidCallback onPres
           ),
         ),
         child: Row(
-  mainAxisAlignment: MainAxisAlignment.spaceBetween,  // Ensures the text and icon are on opposite sides
-  children: [
-    Flexible(
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: ScreenUtils.fontSize(context, 0.025),
-          fontWeight: FontWeight.bold,
+          mainAxisAlignment:
+              MainAxisAlignment
+                  .spaceBetween, // Ensures the text and icon are on opposite sides
+          children: [
+            Flexible(
+              child: Text(
+                text,
+                style: TextStyle(
+                  fontSize: ScreenUtils.fontSize(context, 0.025),
+                  fontWeight: FontWeight.bold,
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            Icon(
+              Icons.arrow_forward,
+              size: ScreenUtils.height(context, 0.04),
+              color: colorScheme.onPrimary,
+            ),
+          ],
         ),
-        overflow: TextOverflow.ellipsis,
       ),
     ),
-    Icon(Icons.arrow_forward, size: ScreenUtils.height(context, 0.04),
-          color: colorScheme.onPrimary,),
-  ],
-)
-        ),
-      ),
-    );
+  );
 }

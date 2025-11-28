@@ -29,10 +29,15 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
       final uid = FirebaseAuth.instance.currentUser?.uid;
       if (uid == null) return;
 
-      final userDoc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      final userDoc =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
       final userTeam = userDoc['Teaam'] as String;
 
-      final scheduleDoc = await FirebaseFirestore.instance.collection('schedules').doc(userTeam).get();
+      final scheduleDoc =
+          await FirebaseFirestore.instance
+              .collection('schedules')
+              .doc(userTeam)
+              .get();
 
       if (!scheduleDoc.exists) {
         if (!mounted) return;
@@ -70,7 +75,8 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) return;
 
-    final userDoc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    final userDoc =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
     final name = userDoc['Name'];
     final position = userDoc['Position'];
     final team = userDoc['Teaam'];
@@ -81,90 +87,117 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
     if (!mounted) return;
     showDialog(
       context: context,
-      builder: (_) => AlertDialog(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(child: Text('Assign yourself ($position)')),
-            IconButton(
-              icon: const Icon(Icons.close),
-              tooltip: 'Close',
-              onPressed: () => Navigator.of(context).pop(),
+      builder:
+          (_) => AlertDialog(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(child: Text('Assign yourself ($position)')),
+                IconButton(
+                  icon: const Icon(Icons.close),
+                  tooltip: 'Close',
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ],
             ),
-          ],
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: ['Medic', 'Rescue Tech'].map((role) {
-            final alreadyTaken = existing[role];
-            final isTaken = alreadyTaken != null;
-            final isYours = alreadyTaken == name;
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children:
+                  ['Medic', 'Rescue Tech'].map((role) {
+                    final alreadyTaken = existing[role];
+                    final isTaken = alreadyTaken != null;
+                    final isYours = alreadyTaken == name;
 
-            return ListTile(
-              title: Text(role),
-              subtitle: Text(isTaken ? alreadyTaken.toString() : 'Available'),
-              trailing: isTaken
-                  ? isYours
-                      ? TextButton(
-                          onPressed: () async {
-                            final docRef = FirebaseFirestore.instance.collection('schedules').doc(team);
-                            await docRef.update({
-                              '${dateKey.toIso8601String()}.$role': FieldValue.delete()
-                            });
-                            if (!mounted) return;
-                            Navigator.pop(context);
-                            _loadUserAndSchedule();
-                          },
-                          child: const Text('Remove'),
-                        )
-                      : null
-                  : TextButton(
-                      onPressed: () async {
-                        if (position != role) {
-                          if (!mounted) return;
-                          Navigator.pop(context);
-                          if (!mounted) return;
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('You can only sign up for $position shifts')),
-                          );
-                          return;
-                        }
+                    return ListTile(
+                      title: Text(role),
+                      subtitle: Text(
+                        isTaken ? alreadyTaken.toString() : 'Available',
+                      ),
+                      trailing:
+                          isTaken
+                              ? isYours
+                                  ? TextButton(
+                                    onPressed: () async {
+                                      final docRef = FirebaseFirestore.instance
+                                          .collection('schedules')
+                                          .doc(team);
+                                      await docRef.update({
+                                        '${dateKey.toIso8601String()}.$role':
+                                            FieldValue.delete(),
+                                      });
+                                      if (!mounted) return;
+                                      Navigator.pop(context);
+                                      _loadUserAndSchedule();
+                                    },
+                                    child: const Text('Remove'),
+                                  )
+                                  : null
+                              : TextButton(
+                                onPressed: () async {
+                                  if (position != role) {
+                                    if (!mounted) return;
+                                    Navigator.pop(context);
+                                    if (!mounted) return;
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'You can only sign up for $position shifts',
+                                        ),
+                                      ),
+                                    );
+                                    return;
+                                  }
 
-                        final confirmed = await showDialog<bool>(
-                          context: context,
-                          builder: (_) => AlertDialog(
-                            title: const Text('Confirm Shift Assignment'),
-                            content: Text('Are you sure you want to assign yourself to this $role shift?'),
-                            actions: [
-                              TextButton(
-                                onPressed: () => Navigator.pop(context, false),
-                                child: const Text('Cancel'),
+                                  final confirmed = await showDialog<bool>(
+                                    context: context,
+                                    builder:
+                                        (_) => AlertDialog(
+                                          title: const Text(
+                                            'Confirm Shift Assignment',
+                                          ),
+                                          content: Text(
+                                            'Are you sure you want to assign yourself to this $role shift?',
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed:
+                                                  () => Navigator.pop(
+                                                    context,
+                                                    false,
+                                                  ),
+                                              child: const Text('Cancel'),
+                                            ),
+                                            TextButton(
+                                              onPressed:
+                                                  () => Navigator.pop(
+                                                    context,
+                                                    true,
+                                                  ),
+                                              child: const Text('Yes'),
+                                            ),
+                                          ],
+                                        ),
+                                  );
+
+                                  if (confirmed == true) {
+                                    final docRef = FirebaseFirestore.instance
+                                        .collection('schedules')
+                                        .doc(team);
+                                    await docRef.set({
+                                      dateKey.toIso8601String(): {role: name},
+                                    }, SetOptions(merge: true));
+
+                                    if (!mounted) return;
+                                    Navigator.pop(context);
+                                    _loadUserAndSchedule();
+                                  }
+                                },
+                                child: const Text('Sign Up'),
                               ),
-                              TextButton(
-                                onPressed: () => Navigator.pop(context, true),
-                                child: const Text('Yes'),
-                              ),
-                            ],
-                          ),
-                        );
-
-                        if (confirmed == true) {
-                          final docRef = FirebaseFirestore.instance.collection('schedules').doc(team);
-                          await docRef.set({
-                            dateKey.toIso8601String(): {role: name}
-                          }, SetOptions(merge: true));
-
-                          if (!mounted) return;
-                          Navigator.pop(context);
-                          _loadUserAndSchedule();
-                        }
-                      },
-                      child: const Text('Sign Up'),
-                    ),
-            );
-          }).toList(),
-        ),
-      ),
+                    );
+                  }).toList(),
+            ),
+          ),
     );
   }
 
@@ -196,6 +229,30 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _LegendDot(
+                  color: colorScheme.secondaryContainer,
+                  label: 'Today',
+                ),
+                const SizedBox(width: 12),
+                _LegendDot(
+                  color: colorScheme.secondary,
+                  label: 'Selected',
+                  onColor: colorScheme.onSecondary,
+                ),
+                const SizedBox(width: 12),
+                _LegendDot(
+                  color: colorScheme.surfaceVariant,
+                  label: 'Available',
+                  onColor: colorScheme.onSurfaceVariant,
+                ),
+              ],
+            ),
+          ),
           TableCalendar(
             firstDay: DateTime.utc(2024, 1, 1),
             lastDay: DateTime.utc(2026, 12, 31),
@@ -215,11 +272,13 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
                 final roles = _roleAssignments[dateKey] ?? {};
 
                 return Container(
-                  padding: EdgeInsets.all(ScreenUtils.height(context, 0.003)),
-                  margin: EdgeInsets.all(ScreenUtils.height(context, 0.001)),
+                  padding: const EdgeInsets.all(8),
+                  margin: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
                     border: Border.all(color: colorScheme.surfaceVariant),
+                    borderRadius: BorderRadius.circular(6),
                   ),
+                  constraints: const BoxConstraints(minHeight: 72),
                   child: Stack(
                     children: [
                       Positioned(
@@ -242,12 +301,16 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
                           children: [
                             Text(
                               'M: ${roles['Medic'] ?? ''}',
-                              style: TextStyle(fontSize: ScreenUtils.fontSize(context, 0.013)),
+                              style: TextStyle(
+                                fontSize: ScreenUtils.fontSize(context, 0.013),
+                              ),
                               textAlign: TextAlign.center,
                             ),
                             Text(
                               'R: ${roles['Rescue Tech'] ?? ''}',
-                              style: TextStyle(fontSize: ScreenUtils.fontSize(context, 0.013)),
+                              style: TextStyle(
+                                fontSize: ScreenUtils.fontSize(context, 0.013),
+                              ),
                               textAlign: TextAlign.center,
                             ),
                           ],
@@ -262,13 +325,17 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
                 final roles = _roleAssignments[dateKey] ?? {};
 
                 return Container(
-                  padding: EdgeInsets.all(ScreenUtils.height(context, 0.003)),
-                  margin: EdgeInsets.all(ScreenUtils.height(context, 0.001)),
+                  padding: const EdgeInsets.all(8),
+                  margin: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
                     color: colorScheme.secondaryContainer,
-                    border: Border.all(color: colorScheme.secondary, width: 1.5),
+                    border: Border.all(
+                      color: colorScheme.secondary,
+                      width: 1.5,
+                    ),
                     borderRadius: BorderRadius.circular(6),
                   ),
+                  constraints: const BoxConstraints(minHeight: 72),
                   child: Stack(
                     children: [
                       Positioned(
@@ -317,13 +384,14 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
                 final roles = _roleAssignments[dateKey] ?? {};
 
                 return Container(
-                  padding: EdgeInsets.all(ScreenUtils.height(context, 0.003)),
-                  margin: EdgeInsets.all(ScreenUtils.height(context, 0.001)),
+                  padding: const EdgeInsets.all(8),
+                  margin: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
                     color: colorScheme.secondary,
                     border: Border.all(color: colorScheme.primary, width: 2),
                     borderRadius: BorderRadius.circular(6),
                   ),
+                  constraints: const BoxConstraints(minHeight: 72),
                   child: Stack(
                     children: [
                       Positioned(
@@ -372,6 +440,37 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _LegendDot extends StatelessWidget {
+  final Color color;
+  final String label;
+  final Color? onColor;
+
+  const _LegendDot({required this.color, required this.label, this.onColor});
+
+  @override
+  Widget build(BuildContext context) {
+    final textStyle = Theme.of(context).textTheme.bodyMedium?.copyWith(
+      color: onColor ?? Theme.of(context).colorScheme.onSurface,
+    );
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 14,
+          height: 14,
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+            border: Border.all(color: Colors.black.withOpacity(0.05)),
+          ),
+        ),
+        const SizedBox(width: 6),
+        Text(label, style: textStyle),
+      ],
     );
   }
 }
