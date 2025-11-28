@@ -3,6 +3,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../utils/screen_utils.dart';
 import '../utils/user_session.dart';
+import '../utils/responsive.dart';
 
 class ScheduleWidget extends StatefulWidget {
   const ScheduleWidget({super.key});
@@ -233,6 +234,17 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
     }
 
     final colorScheme = Theme.of(context).colorScheme;
+    final responsive = ResponsiveConfig.of(context);
+    final cellPadding = responsive.size == SizeClass.large
+        ? 12.0
+        : responsive.size == SizeClass.medium
+            ? 10.0
+            : 8.0;
+    final cellMargin = responsive.size == SizeClass.large
+        ? 6.0
+        : responsive.size == SizeClass.medium
+            ? 5.0
+            : 4.0;
 
     return SingleChildScrollView(
       child: Column(
@@ -248,7 +260,10 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: EdgeInsets.symmetric(
+              horizontal: responsive.padding,
+              vertical: responsive.padding / 2,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -290,8 +305,8 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
                 final roles = _roleAssignments[dateKey] ?? {};
 
                 return Container(
-                  padding: const EdgeInsets.all(8),
-                  margin: const EdgeInsets.all(4),
+                  padding: EdgeInsets.all(cellPadding),
+                  margin: EdgeInsets.all(cellMargin),
                   decoration: BoxDecoration(
                     border: Border.all(color: colorScheme.surfaceContainerHighest),
                     borderRadius: BorderRadius.circular(6),

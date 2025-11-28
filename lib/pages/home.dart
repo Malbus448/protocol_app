@@ -9,6 +9,7 @@ import '../widgets/app_drawer.dart';
 import '../utils/screen_utils.dart';
 import '../utils/user_session.dart';
 import '../utils/data_cache.dart';
+import '../utils/responsive.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -54,6 +55,8 @@ class HomePageState extends State<HomePage> {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
+    final responsive = ResponsiveConfig.of(context);
+
     return Scaffold(
       key: _scaffoldKey,
       drawer: AppDrawer(onLogout: _logout, userRole: userRole!),
@@ -76,16 +79,20 @@ class HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.all(responsive.padding),
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+              constraints: BoxConstraints(maxWidth: responsive.cardMaxWidth),
+              padding: EdgeInsets.symmetric(
+                horizontal: responsive.padding,
+                vertical: responsive.padding + 4,
+              ),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.06),
-                    blurRadius: 12,
+                    color: Colors.black.withValues(alpha: 0.05),
+                    blurRadius: responsive.size == SizeClass.large ? 16 : 12,
                     offset: const Offset(0, 6),
                   ),
                 ],
