@@ -93,11 +93,11 @@ class MyApp extends StatelessWidget {
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: lightScheme.surfaceVariant),
+            borderSide: BorderSide(color: lightScheme.surfaceContainerHighest),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: lightScheme.surfaceVariant),
+            borderSide: BorderSide(color: lightScheme.surfaceContainerHighest),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
