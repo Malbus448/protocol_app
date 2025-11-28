@@ -25,6 +25,7 @@ class AppShell extends StatefulWidget {
 
 class _AppShellState extends State<AppShell> {
   String _role = 'user';
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -50,13 +51,31 @@ class _AppShellState extends State<AppShell> {
 
   @override
   Widget build(BuildContext context) {
+    final canPop = Navigator.of(context).canPop();
+    final rightPadding = MediaQuery.of(context).size.width * 0.02;
     final appBar = widget.customAppBar ??
         AppBar(
+          leading: canPop
+              ? IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).maybePop(),
+                )
+              : null,
           title: Text(widget.title),
           centerTitle: true,
+          actions: [
+            Padding(
+              padding: EdgeInsets.only(right: rightPadding),
+              child: IconButton(
+                icon: const Icon(Icons.menu),
+                onPressed: () => _scaffoldKey.currentState?.openDrawer(),
+              ),
+            ),
+          ],
         );
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: appBar,
       drawer: AppDrawer(onLogout: _logout, userRole: _role),
       body: widget.body,
