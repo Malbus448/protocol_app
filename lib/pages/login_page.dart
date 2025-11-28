@@ -13,6 +13,7 @@ class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _passwordFocusNode = FocusNode();
+  bool _obscurePassword = true;
   bool _loading = false;
   String? _error;
 
@@ -121,10 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                       const SizedBox(height: 16),
                       TextFormField(
                         controller: _passwordController,
-                        decoration: const InputDecoration(
-                          labelText: 'Password',
-                        ),
-                        obscureText: true,
+                        obscureText: _obscurePassword,
                         focusNode: _passwordFocusNode,
                         textInputAction: TextInputAction.done,
                         onFieldSubmitted: (_) => _submitIfValid(),
@@ -133,6 +131,22 @@ class _LoginPageState extends State<LoginPage> {
                                 value == null || value.isEmpty
                                     ? 'Enter your password'
                                     : null,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        decoration: InputDecoration(
+                          labelText: 'Password',
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscurePassword = !_obscurePassword;
+                              });
+                            },
+                            tooltip: _obscurePassword ? 'Show password' : 'Hide password',
+                          ),
+                        ),
                       ),
                       const SizedBox(height: 24),
                       _loading
