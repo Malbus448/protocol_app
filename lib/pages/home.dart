@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:csv/csv.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../widgets/main_nav_button.dart';
 import '../widgets/bottom_nav_bar.dart';
