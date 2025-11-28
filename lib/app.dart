@@ -30,7 +30,6 @@ class MyApp extends StatelessWidget {
       primary: primaryNavy,
       secondary: accentTeal,
       tertiary: accentRed,
-      background: surfaceStone,
       surface: Colors.white,
     );
 
@@ -39,7 +38,6 @@ class MyApp extends StatelessWidget {
       brightness: Brightness.dark,
       secondary: accentTeal,
       tertiary: accentRed,
-      background: const Color(0xFF0B1526),
       surface: const Color(0xFF121E30),
     );
 
