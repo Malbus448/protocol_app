@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
         bodyMedium: workSans.bodyMedium?.copyWith(
           fontSize: 15,
           height: 1.4,
-          color: onSurface.withOpacity(0.9),
+          color: onSurface.withValues(alpha: 0.9),
         ),
         labelLarge: workSans.labelLarge?.copyWith(
           fontWeight: FontWeight.w600,
