@@ -8,6 +8,8 @@ import '../widgets/main_nav_button.dart';
 import '../widgets/bottom_nav_bar.dart';
 import '../widgets/app_drawer.dart';
 import '../utils/screen_utils.dart';
+import '../utils/user_session.dart';
+import '../utils/data_cache.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -27,13 +29,10 @@ class HomePageState extends State<HomePage> {
   }
 
   Future<void> _loadUserRole() async {
-    final uid = FirebaseAuth.instance.currentUser?.uid;
-    if (uid == null) return;
-
-    final doc =
-        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    final data = await UserSession.instance.loadCurrentUser();
+    if (!mounted) return;
     setState(() {
-      userRole = doc.data()?['role']?.toString().toLowerCase() ?? 'user';
+      userRole = data?['role']?.toString().toLowerCase() ?? 'user';
     });
   }
 
@@ -44,6 +43,8 @@ class HomePageState extends State<HomePage> {
 
   void _logout() async {
     await FirebaseAuth.instance.signOut();
+    UserSession.instance.clear();
+    DataCache.clear();
     if (!mounted) return;
     Navigator.pushReplacementNamed(context, '/login');
   }

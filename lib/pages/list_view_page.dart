@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../widgets/list_view.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/bottom_nav_bar.dart';
+import '../utils/data_cache.dart';
 
 class ListViewPage extends StatelessWidget {
   const ListViewPage({super.key});
@@ -17,22 +18,18 @@ class ListViewPage extends StatelessWidget {
 
     return Scaffold(
       appBar: customAppBar(context, pageTitle),
-      body: FutureBuilder<QuerySnapshot>(
-        future:
-            FirebaseFirestore.instance
-                .collection(sourceCollection)
-                .orderBy('Name')
-                .get(),
+      body: FutureBuilder<List<QueryDocumentSnapshot>>(
+        future: DataCache.getCollectionOrderedByName(sourceCollection),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
-          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(child: Text('No data found.'));
           }
 
           return CustomListView(
-            docs: snapshot.data!.docs,
+            docs: snapshot.data!,
             title: pageTitle,
             displayKey: 'Name',
             extraKey: isBaseDescendant ? 'Location' : null,

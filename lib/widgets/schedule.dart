@@ -3,6 +3,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../utils/screen_utils.dart';
+import '../utils/user_session.dart';
 
 class ScheduleWidget extends StatefulWidget {
   const ScheduleWidget({super.key});
@@ -16,6 +17,7 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
   DateTime _focusedDay = DateTime.now();
   bool _loading = true;
   String _scheduleTitle = '';
+  bool _pendingUpdate = false;
 
   @override
   void initState() {
@@ -26,12 +28,16 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
 
   Future<void> _loadUserAndSchedule() async {
     try {
-      final uid = FirebaseAuth.instance.currentUser?.uid;
-      if (uid == null) return;
-
-      final userDoc =
-          await FirebaseFirestore.instance.collection('users').doc(uid).get();
-      final userTeam = userDoc['Teaam'] as String;
+      final userData = await UserSession.instance.loadCurrentUser();
+      final userTeam = userData?['Teaam'] as String?;
+      if (userTeam == null) {
+        if (!mounted) return;
+        setState(() {
+          _scheduleTitle = 'Schedule';
+          _loading = false;
+        });
+        return;
+      }
 
       final scheduleDoc =
           await FirebaseFirestore.instance
@@ -72,14 +78,11 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
   }
 
   void _onDayTap(DateTime day) async {
-    final uid = FirebaseAuth.instance.currentUser?.uid;
-    if (uid == null) return;
-
-    final userDoc =
-        await FirebaseFirestore.instance.collection('users').doc(uid).get();
-    final name = userDoc['Name'];
-    final position = userDoc['Position'];
-    final team = userDoc['Teaam'];
+    final userData = await UserSession.instance.loadCurrentUser();
+    final name = userData?['Name'];
+    final position = userData?['Position'];
+    final team = userData?['Teaam'];
+    if (name == null || position == null || team == null) return;
 
     final dateKey = DateTime.utc(day.year, day.month, day.day);
     final existing = _roleAssignments[dateKey] ?? {};
@@ -118,6 +121,10 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
                               ? isYours
                                   ? TextButton(
                                     onPressed: () async {
+                                      if (_pendingUpdate) return;
+                                      setState(() {
+                                        _pendingUpdate = true;
+                                      });
                                       final docRef = FirebaseFirestore.instance
                                           .collection('schedules')
                                           .doc(team);
@@ -127,13 +134,18 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
                                       });
                                       if (!mounted) return;
                                       Navigator.pop(context);
-                                      _loadUserAndSchedule();
+                                      await _loadUserAndSchedule();
+                                      if (!mounted) return;
+                                      setState(() {
+                                        _pendingUpdate = false;
+                                      });
                                     },
                                     child: const Text('Remove'),
                                   )
                                   : null
                               : TextButton(
                                 onPressed: () async {
+                                  if (_pendingUpdate) return;
                                   if (position != role) {
                                     if (!mounted) return;
                                     Navigator.pop(context);
@@ -180,6 +192,9 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
                                   );
 
                                   if (confirmed == true) {
+                                    setState(() {
+                                      _pendingUpdate = true;
+                                    });
                                     final docRef = FirebaseFirestore.instance
                                         .collection('schedules')
                                         .doc(team);
@@ -189,7 +204,11 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
 
                                     if (!mounted) return;
                                     Navigator.pop(context);
-                                    _loadUserAndSchedule();
+                                    await _loadUserAndSchedule();
+                                    if (!mounted) return;
+                                    setState(() {
+                                      _pendingUpdate = false;
+                                    });
                                   }
                                 },
                                 child: const Text('Sign Up'),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/bottom_nav_bar.dart';
+import '../utils/data_cache.dart';
 
 class ContactsPage extends StatelessWidget {
   const ContactsPage({super.key});
@@ -10,8 +11,8 @@ class ContactsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar(context, 'Contacts'),
-      body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-        stream: FirebaseFirestore.instance.collection('users').snapshots(),
+      body: FutureBuilder<List<QueryDocumentSnapshot>>(
+        future: DataCache.getContacts(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -21,16 +22,16 @@ class ContactsPage extends StatelessWidget {
             return const Center(child: Text('An error occurred.'));
           }
 
-          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(child: Text('No contacts found.'));
           }
 
-          final users = snapshot.data!.docs;
+          final users = snapshot.data!;
 
           return ListView.builder(
             itemCount: users.length,
             itemBuilder: (context, index) {
-              final data = users[index].data();
+              final data = users[index].data() as Map<String, dynamic>;
               final name = data['Name'] ?? 'N/A';
               final email = data['Email'] ?? 'N/A';
               final phone = data['Phone'] ?? 'N/A';
