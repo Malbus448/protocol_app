@@ -272,14 +272,15 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _navigateBasedOnAuthState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _navigateBasedOnAuthState();
+    });
   }
 
   Future<void> _navigateBasedOnAuthState() async {
     if (!mounted) return;
     final user = FirebaseAuth.instance.currentUser;
 
-    if (!mounted) return;
     if (user == null) {
       Navigator.pushReplacementNamed(context, '/login');
       return;
