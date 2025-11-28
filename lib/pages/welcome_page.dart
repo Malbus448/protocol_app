@@ -10,11 +10,29 @@ class WelcomePage extends StatefulWidget {
 
 class _WelcomePageState extends State<WelcomePage> {
   bool _saving = false;
+  bool _started = false;
 
-  Future<void> _completeWelcome(String userId) async {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_started) return;
+    _started = true;
+    final args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    final userId = args?['userId']?.toString();
+    _completeWelcome(userId);
+  }
+
+  Future<void> _completeWelcome(String? userId) async {
     setState(() {
       _saving = true;
     });
+
+    if (userId == null) {
+      if (!mounted) return;
+      Navigator.pushReplacementNamed(context, '/home');
+      return;
+    }
 
     try {
       await FirebaseFirestore.instance
@@ -34,7 +52,6 @@ class _WelcomePageState extends State<WelcomePage> {
     final args =
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
     final name = args?['name']?.toString().trim();
-    final userId = args?['userId']?.toString();
     final displayName = (name != null && name.isNotEmpty) ? name : 'there';
 
     final bodyColor = Theme.of(context).colorScheme.onSurfaceVariant;
@@ -64,27 +81,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 24),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: _saving || userId == null
-                          ? null
-                          : () => _completeWelcome(userId),
-                      child: _saving
-                          ? const SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(strokeWidth: 2),
-                            )
-                          : const Text('Continue'),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  TextButton(
-                    onPressed:
-                        userId == null ? null : () => _completeWelcome(userId),
-                    child: const Text('Skip for now'),
-                  ),
+                  const CircularProgressIndicator(),
                 ],
               ),
             ),
