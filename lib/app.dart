@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:protocol_app/pages/admin_page.dart';
 
@@ -277,8 +276,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _navigateBasedOnAuthState() async {
-    await Future.delayed(const Duration(seconds: 2));
-
     if (!mounted) return;
     final user = FirebaseAuth.instance.currentUser;
 
@@ -287,20 +284,6 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacementNamed(context, '/login');
       return;
     }
-
-    final uid = user.uid;
-    final doc =
-        await FirebaseFirestore.instance.collection('users').doc(uid).get();
-
-    if (!mounted) return;
-    final data = doc.data();
-
-    if (!doc.exists || data == null || !data.containsKey('role')) {
-      Navigator.pushReplacementNamed(context, '/login');
-      return;
-    }
-
-    //final role = data['role'];
 
     if (!mounted) return;
     Navigator.pushReplacementNamed(
