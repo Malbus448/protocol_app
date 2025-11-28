@@ -25,10 +25,7 @@ class MonographDisplayPage extends StatelessWidget {
         itemBuilder: (context, index) {
           final key = headerRow[index]?.toString() ?? 'N/A';
           final value = rowData[index]?.toString() ?? 'N/A';
-          return ListTile(
-            title: Text(key),
-            subtitle: Text(value),
-          );
+          return ListTile(title: Text(key), subtitle: Text(value));
         },
       ),
       bottomNavigationBar: const BottomNavBar(currentIndex: 0),

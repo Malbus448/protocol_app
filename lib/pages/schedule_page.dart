@@ -25,7 +25,8 @@ class _SchedulePageState extends State<SchedulePage> {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) return;
 
-    final userDoc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    final userDoc =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
     final teaam = userDoc.data()?['Teaam'];
 
     if (teaam != null) {

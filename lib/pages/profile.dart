@@ -27,7 +27,9 @@ class ProfilePage extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
 
-          if (snapshot.hasError || !snapshot.hasData || !snapshot.data!.exists) {
+          if (snapshot.hasError ||
+              !snapshot.hasData ||
+              !snapshot.data!.exists) {
             return const Center(child: Text('Failed to load profile.'));
           }
 
@@ -44,11 +46,16 @@ class ProfilePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CircleAvatar(
-                          radius: 50,
-                          backgroundImage: (data['photoUrl'] != null && data['photoUrl'].toString().trim().isNotEmpty)
-                          ? NetworkImage(data['photoUrl'])
-                          : const AssetImage('assets/images/profile_placeholder.jpeg') as ImageProvider,
-                        ),
+                    radius: 50,
+                    backgroundImage:
+                        (data['photoUrl'] != null &&
+                                data['photoUrl'].toString().trim().isNotEmpty)
+                            ? NetworkImage(data['photoUrl'])
+                            : const AssetImage(
+                                  'assets/images/profile_placeholder.jpeg',
+                                )
+                                as ImageProvider,
+                  ),
                   const SizedBox(height: 20),
                   Text('Name: $name', style: const TextStyle(fontSize: 18)),
                   const SizedBox(height: 10),

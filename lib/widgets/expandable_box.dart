@@ -4,14 +4,14 @@ class ExpandableBox extends StatefulWidget {
   final String title;
   final List<Map<String, String>> data;
   final String columnKey;
-  final int selectedIndex;  // Add the missing parameter
+  final int selectedIndex; // Add the missing parameter
 
   const ExpandableBox({
     super.key,
     required this.title,
     required this.data,
     required this.columnKey,
-    required this.selectedIndex,  // Include the selectedIndex parameter
+    required this.selectedIndex, // Include the selectedIndex parameter
   });
 
   @override
@@ -31,8 +31,8 @@ class ExpandableBoxState extends State<ExpandableBox> {
           _isExpanded
               ? widget.title
               : widget.data.isNotEmpty
-                  ? widget.data[0][widget.columnKey] ?? 'N/A'
-                  : 'N/A',
+              ? widget.data[0][widget.columnKey] ?? 'N/A'
+              : 'N/A',
         ),
         initiallyExpanded: _isExpanded,
         onExpansionChanged: (expanded) {

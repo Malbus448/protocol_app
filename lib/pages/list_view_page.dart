@@ -9,19 +9,20 @@ class ListViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
+    final args =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
     final pageTitle = args?['title'] ?? 'List View';
     final sourceCollection = args?['source'] ?? 'drug_monographs';
     final isBaseDescendant = args?['isBaseDescendant'] == true;
 
-
     return Scaffold(
       appBar: customAppBar(context, pageTitle),
       body: FutureBuilder<QuerySnapshot>(
-        future: FirebaseFirestore.instance
-            .collection(sourceCollection)
-            .orderBy('Name')
-            .get(),
+        future:
+            FirebaseFirestore.instance
+                .collection(sourceCollection)
+                .orderBy('Name')
+                .get(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -33,8 +34,8 @@ class ListViewPage extends StatelessWidget {
           return CustomListView(
             docs: snapshot.data!.docs,
             title: pageTitle,
-              displayKey: 'Name',
-              extraKey: isBaseDescendant ? 'Location' : null,
+            displayKey: 'Name',
+            extraKey: isBaseDescendant ? 'Location' : null,
           );
         },
       ),

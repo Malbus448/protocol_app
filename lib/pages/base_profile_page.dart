@@ -7,13 +7,15 @@ class BaseProfilePage extends StatelessWidget {
   const BaseProfilePage({super.key});
 
   Future<List<Map<String, dynamic>>> fetchAllBases() async {
-    final snapshot = await FirebaseFirestore.instance.collection('baseinfo').get();
+    final snapshot =
+        await FirebaseFirestore.instance.collection('baseinfo').get();
     return snapshot.docs.map((doc) => doc.data()).toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    final data = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final data =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final name = data['Name'] ?? 'N/A';
     final location = data['Location'] ?? 'N/A';
     final address = data['Address'] ?? 'N/A';
@@ -30,7 +32,9 @@ class BaseProfilePage extends StatelessWidget {
             children: [
               const CircleAvatar(
                 radius: 50,
-                backgroundImage: AssetImage('assets/images/profile_placeholder.jpeg'),
+                backgroundImage: AssetImage(
+                  'assets/images/profile_placeholder.jpeg',
+                ),
               ),
               const SizedBox(height: 20),
               const SizedBox(height: 10),
@@ -38,9 +42,15 @@ class BaseProfilePage extends StatelessWidget {
               const SizedBox(height: 10),
               Text('Address: $address', style: const TextStyle(fontSize: 18)),
               const SizedBox(height: 10),
-              Text('Door Code: $doorCode', style: const TextStyle(fontSize: 16)),
+              Text(
+                'Door Code: $doorCode',
+                style: const TextStyle(fontSize: 16),
+              ),
               const SizedBox(height: 10),
-              Text('Additional Info: $info', style: const TextStyle(fontSize: 16)),
+              Text(
+                'Additional Info: $info',
+                style: const TextStyle(fontSize: 16),
+              ),
             ],
           ),
         ),

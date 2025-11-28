@@ -39,16 +39,25 @@ class ContactsPage extends StatelessWidget {
               return Card(
                 margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 elevation: 2,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
                 child: ListTile(
                   contentPadding: const EdgeInsets.all(12),
                   leading: CircleAvatar(
                     radius: 30,
-                    backgroundImage: (photoUrl != null && photoUrl.toString().trim().isNotEmpty)
-                        ? NetworkImage(photoUrl)
-                        : const AssetImage('assets/images/profile_placeholder.jpeg')
+                    backgroundImage:
+                        (photoUrl != null &&
+                                photoUrl.toString().trim().isNotEmpty)
+                            ? NetworkImage(photoUrl)
+                            : const AssetImage(
+                              'assets/images/profile_placeholder.jpeg',
+                            ),
                   ),
-                  title: Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
+                  title: Text(
+                    name,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -64,7 +73,7 @@ class ContactsPage extends StatelessWidget {
           );
         },
       ),
-      bottomNavigationBar: const BottomNavBar(currentIndex: 2)
+      bottomNavigationBar: const BottomNavBar(currentIndex: 2),
     );
   }
 }

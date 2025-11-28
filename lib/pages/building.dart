@@ -9,7 +9,6 @@ class ScreenUtils {
   static double height(BuildContext context, double fraction) {
     return MediaQuery.of(context).size.height * fraction;
   }
-  
 
   static double fontSize(BuildContext context, double fraction) {
     return MediaQuery.of(context).size.height * fraction;
@@ -47,7 +46,7 @@ class BuildingPage extends StatelessWidget {
                     "We are currently performing scheduled maintenance. Please check back later. Thank you for your patience.",
                 btnText: "Home Page",
                 press: () {
-                 Navigator.pushNamed(context, '/home');
+                  Navigator.pushNamed(context, '/home');
                 },
               ),
             ],
@@ -78,9 +77,7 @@ class ErrorInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        constraints: BoxConstraints(
-          maxWidth: ScreenUtils.width(context, 0.9),
-        ),
+        constraints: BoxConstraints(maxWidth: ScreenUtils.width(context, 0.9)),
         alignment: Alignment.center,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -89,17 +86,15 @@ class ErrorInfo extends StatelessWidget {
             Text(
               title,
               style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    fontSize: ScreenUtils.fontSize(context, 0.03),
-                  ),
+                fontWeight: FontWeight.bold,
+                fontSize: ScreenUtils.fontSize(context, 0.03),
+              ),
             ),
             SizedBox(height: ScreenUtils.height(context, 0.02)),
             Text(
               description,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: ScreenUtils.fontSize(context, 0.02),
-              ),
+              style: TextStyle(fontSize: ScreenUtils.fontSize(context, 0.02)),
             ),
             SizedBox(height: ScreenUtils.height(context, 0.04)),
             button ??
